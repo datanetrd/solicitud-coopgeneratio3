@@ -1,0 +1,29 @@
+body{
+    background-image: url('/img/login3.jpg');
+         background-size:cover;
+         background-repeat: no-repeat;
+         background-attachment:fixed;
+         filter-color: black;
+ }
+@media screen and (max-height: 575px){
+#rc-imageselect, .g-recaptcha {transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;}
+}
+
+
+msg-error {
+    color: #c65848;
+  }
+  .g-recaptcha.error {
+    border: solid 2px #c64848;
+    padding: .2em;
+    width: 19em;
+  }
+  
+  already defined in bootstrap4
+  .text-lg-center {
+    text-align: center;
+}
+
+.g-recaptcha {
+    display: inline-block;
+}
