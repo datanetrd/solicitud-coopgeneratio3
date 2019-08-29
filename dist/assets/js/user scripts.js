@@ -106,3 +106,16 @@ sueldo.addEventListener("keyup", function(){
   });
     sueldo.value = sueldo.value.replace(regex,"");
 })
+var ahorro = document.getElementById("ahorromensual");
+
+ahorro.addEventListener("keyup", function(){
+    if (ahorro.value == ""){
+     
+    }
+    new Cleave('#ahorromensual', {
+      numeral: true,
+      // numeralDecimalMark: ','
+      delimiter: ','
+  });
+    ahorro.value = ahorro.value.replace(regex,"");
+})
