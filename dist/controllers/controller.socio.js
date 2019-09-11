@@ -1,3 +1,4 @@
+var regeneratorRuntime = require('regenerator-runtime');
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25,7 +26,7 @@ function _savesocioDB() {
   _savesocioDB = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(req, res) {
-    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, cedula2, errors, dataName, data;
+    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, errors, dataName, data;
 
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -51,7 +52,7 @@ function _savesocioDB() {
               // //If Successful
               // return res.json({"success": true, "msg":"Captcha passed"});
             });
-            _req$body = req.body, nombre = _req$body.nombre, apellido = _req$body.apellido, cedula = _req$body.cedula, estadocivil = _req$body.estadocivil, direccionresidencial = _req$body.direccionresidencial, provincia = _req$body.provincia, telefonos = _req$body.telefonos, celular = _req$body.celular, oficinatrabajo = _req$body.oficinatrabajo, direcciontrabajo = _req$body.direcciontrabajo, telefonotrabajo = _req$body.telefonotrabajo, fax = _req$body.fax, puesto = _req$body.puesto, sueldo = _req$body.sueldo, fechaingresoempresa = _req$body.fechaingresoempresa, email = _req$body.email, ahorromensual = _req$body.ahorromensual, certificadoaportacion = _req$body.certificadoaportacion, valorcertificado = _req$body.valorcertificado, nombre2 = _req$body.nombre2, cedula2 = _req$body.cedula2;
+            _req$body = req.body, nombre = _req$body.nombre, apellido = _req$body.apellido, cedula = _req$body.cedula, estadocivil = _req$body.estadocivil, direccionresidencial = _req$body.direccionresidencial, provincia = _req$body.provincia, telefonos = _req$body.telefonos, celular = _req$body.celular, oficinatrabajo = _req$body.oficinatrabajo, direcciontrabajo = _req$body.direcciontrabajo, telefonotrabajo = _req$body.telefonotrabajo, fax = _req$body.fax, puesto = _req$body.puesto, sueldo = _req$body.sueldo, fechaingresoempresa = _req$body.fechaingresoempresa, email = _req$body.email, ahorromensual = _req$body.ahorromensual, certificadoaportacion = _req$body.certificadoaportacion, valorcertificado = _req$body.valorcertificado, nombre2 = _req$body.nombre2, apellido2 = _req$body.apellido2, cedula2 = _req$body.cedula2;
             errors = []; //nombre validations
 
             if (nombre.lenght <= 3) {
@@ -60,7 +61,7 @@ function _savesocioDB() {
               });
             }
 
-            if (typeof nombre === 'string' && /^[a-z]+$/i.test(nombre)) {
+            if (typeof nombre !== 'string' && /^[a-z]+$/i.test(nombre)) {
               errors.push({
                 text: 'El Nombre no puede tener caracteres númericos'
               });
@@ -73,7 +74,7 @@ function _savesocioDB() {
               });
             }
 
-            if (typeof nombre2 === 'string' && /^[a-z]+$/i.test(nombre2)) {
+            if (typeof nombre2 !== 'string' && /^[a-z]+$/i.test(nombre2)) {
               errors.push({
                 text: 'El segundo nombre no puede tener caracteres númericos'
               });
@@ -86,7 +87,7 @@ function _savesocioDB() {
               });
             }
 
-            if (typeof apellido === 'string' && /^[a-z]+$/i.test(apellido)) {
+            if (typeof apellido !== 'string' && /^[a-z]+$/i.test(apellido)) {
               errors.push({
                 text: 'El Apellido no puede tener caracteres númericos'
               });
@@ -99,18 +100,12 @@ function _savesocioDB() {
               });
             }
 
-            if (typeof apellido2 === 'string' && /^[a-z]+$/i.test(apellido2)) {
+            if (typeof apellido2 !== 'string' && /^[a-z]+$/i.test(apellido2)) {
               errors.push({
                 text: 'El segundo apellido no puede tener caracteres númericos'
               });
             } //cedula validations
 
-
-            if (typeof cedula === 'isNaN' && /^[0-9]+$/i.test(cedula)) {
-              errors.push({
-                text: 'Cedula solo puede llevar caracteres númericos'
-              });
-            }
 
             if (cedula.lenght <= 8) {
               errors.push({
@@ -144,24 +139,12 @@ function _savesocioDB() {
               errors.push({
                 text: 'El Telefono debe de tener por lo menos 8 Digitos'
               });
-            }
-
-            if (typeof telefonos === 'isNaN' && /^[0-9]+$/i.test(telefonos)) {
-              errors.push({
-                text: 'El Telefono debe de ser de tipo númerico'
-              });
             } //celular validations
 
 
             if (celular.length < 8) {
               errors.push({
                 text: 'El Celular debe de tener por lo menos 8 Digitos'
-              });
-            }
-
-            if (typeof celular === 'isNaN' && /^[0-9]+$/i.test(celular)) {
-              errors.push({
-                text: 'El Celular debe de ser de tipo númerico'
               });
             } //oficina validations
 
@@ -223,7 +206,7 @@ function _savesocioDB() {
 
 
             if (!(errors.length > 0)) {
-              _context.next = 35;
+              _context.next = 32;
               break;
             }
 
@@ -249,20 +232,20 @@ function _savesocioDB() {
               nombre2: nombre2,
               cedula2: cedula2
             });
-            _context.next = 51;
+            _context.next = 48;
             break;
 
-          case 35:
-            _context.prev = 35;
-            _context.next = 38;
+          case 32:
+            _context.prev = 32;
+            _context.next = 35;
             return _Nuevos_socios["default"].create({
               nombre: nombre,
               apellido: apellido
             });
 
-          case 38:
+          case 35:
             dataName = _context.sent;
-            _context.next = 41;
+            _context.next = 38;
             return _Data_register["default"].create({
               nombre: nombre,
               apellido: apellido,
@@ -287,35 +270,35 @@ function _savesocioDB() {
               cedula2: cedula2
             });
 
-          case 41:
+          case 38:
             data = _context.sent;
 
             if (data) {
               res.redirect('/');
             }
 
-            _context.next = 49;
+            _context.next = 46;
             break;
 
-          case 45:
-            _context.prev = 45;
-            _context.t0 = _context["catch"](35);
+          case 42:
+            _context.prev = 42;
+            _context.t0 = _context["catch"](32);
             console.log(_context.t0);
             res.status(500).json({
               message: 'Algo ha ido Mal',
               data: {}
             }); // res.redirect('/');
 
-          case 49:
+          case 46:
             ;
             console.log(verifyURL);
 
-          case 51:
+          case 48:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[35, 45]]);
+    }, _callee, null, [[32, 42]]);
   }));
   return _savesocioDB.apply(this, arguments);
 }
