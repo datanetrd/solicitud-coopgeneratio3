@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: nuevo_registro
+-- Host: 127.0.0.1    Database: nuevo_registro
 -- ------------------------------------------------------
 -- Server version	8.0.17
 
@@ -44,13 +44,14 @@ CREATE TABLE `data_registers` (
   `certificadoaportacion` varchar(45) DEFAULT NULL,
   `valorcertificado` varchar(45) DEFAULT NULL,
   `nombre2` varchar(45) NOT NULL,
+  `apellido2` varchar(45) NOT NULL,
   `cedula2` varchar(45) NOT NULL,
   `socio_id` int(11) DEFAULT NULL,
   `createdAt` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `data_socio` (`socio_id`),
   CONSTRAINT `data_socio` FOREIGN KEY (`socio_id`) REFERENCES `nuevos_socios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +67,7 @@ CREATE TABLE `nuevos_socios` (
   `apellido` varchar(45) NOT NULL,
   `fecha_solicitud` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -78,4 +79,4 @@ CREATE TABLE `nuevos_socios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-27 17:00:01
+-- Dump completed on 2019-09-11 14:06:34

@@ -291,7 +291,7 @@ function _savesocioDB() {
 
           case 46:
             ;
-            console.log(verifyURL);
+            
 
           case 48:
           case "end":

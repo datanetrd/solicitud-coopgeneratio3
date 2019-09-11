@@ -1,4 +1,5 @@
 import request from 'request';
+import regeneratorRuntime from 'regenerator-runtime';
 import DataRegister from  '../models/Data_register';
 import nuevoSocios from '../models/Nuevos_socios';
 export async function savesocioDB (req,res) {
@@ -174,7 +175,7 @@ request(verifyURL, (err, response, body) => {
         });
         // res.redirect('/');
       };
-    console.log(verifyURL);
+    
   }
 };
 //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']
