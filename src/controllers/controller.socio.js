@@ -124,7 +124,7 @@ request(verifyURL, (err, response, body) => {
     
     //errors validations 
     if(errors.length > 0) {
-      res.render('form', {errors,nombre,apellido,cedula,direccionresidencial,telefonos,celular,oficinatrabajo,direcciontrabajo,telefonotrabajo,fax,puesto,fechaingresoempresa,sueldo,email,ahorromensual,certificadoaportacion,valorcertificado,nombre2,cedula2});
+      res.render('form', {errors,nombre,apellido,cedula,direccionresidencial,telefonos,celular,oficinatrabajo,direcciontrabajo,telefonotrabajo,fax,puesto,fechaingresoempresa,sueldo,email,ahorromensual,certificadoaportacion,valorcertificado,nombre2,apellido2,edula2});
     } else {
 
       
@@ -157,6 +157,7 @@ request(verifyURL, (err, response, body) => {
       certificadoaportacion,
       valorcertificado,
       nombre2,
+      apellido2,
       cedula2
 
         });

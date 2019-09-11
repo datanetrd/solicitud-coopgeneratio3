@@ -1,4 +1,3 @@
-var regeneratorRuntime = require('regenerator-runtime');
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7,6 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.savesocioDB = savesocioDB;
 
 var _request = _interopRequireDefault(require("request"));
+
+var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"));
 
 var _Data_register = _interopRequireDefault(require("../models/Data_register"));
 
@@ -25,10 +26,10 @@ function savesocioDB(_x, _x2) {
 function _savesocioDB() {
   _savesocioDB = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(req, res) {
+  _regeneratorRuntime["default"].mark(function _callee(req, res) {
     var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, errors, dataName, data;
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return _regeneratorRuntime["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -230,9 +231,10 @@ function _savesocioDB() {
               certificadoaportacion: certificadoaportacion,
               valorcertificado: valorcertificado,
               nombre2: nombre2,
-              cedula2: cedula2
+              apellido2: apellido2,
+              edula2: edula2
             });
-            _context.next = 48;
+            _context.next = 47;
             break;
 
           case 32:
@@ -267,6 +269,7 @@ function _savesocioDB() {
               certificadoaportacion: certificadoaportacion,
               valorcertificado: valorcertificado,
               nombre2: nombre2,
+              apellido2: apellido2,
               cedula2: cedula2
             });
 
@@ -291,9 +294,8 @@ function _savesocioDB() {
 
           case 46:
             ;
-            
 
-          case 48:
+          case 47:
           case "end":
             return _context.stop();
         }

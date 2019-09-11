@@ -76,6 +76,9 @@ var DataRegister = _dbconfig.sequelize.define('data_register', {
   nombre2: {
     type: _sequelize["default"].TEXT
   },
+  apellido2: {
+    type: _sequelize["default"].TEXT
+  },
   cedula2: {
     type: _sequelize["default"].TEXT
   },

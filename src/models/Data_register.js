@@ -69,6 +69,9 @@ import {sequelize} from '../config/dbconfig';
     nombre2: {
         type: Sequelize.TEXT
     },
+    apellido2: {
+        type: Sequelize.TEXT
+    },
     cedula2: {
         type: Sequelize.TEXT
     },
