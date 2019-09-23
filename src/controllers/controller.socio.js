@@ -1,6 +1,7 @@
 import request from 'request';
 import regeneratorRuntime from 'regenerator-runtime';
 import DataRegister from  '../models/Data_register';
+import nodemailer from 'nodemailer';
 import nuevoSocios from '../models/Nuevos_socios';
 export async function savesocioDB (req,res) {
 
@@ -32,7 +33,7 @@ request(verifyURL, (err, response, body) => {
 });
 
 
- const {nombre,apellido,cedula,estadocivil,direccionresidencial,provincia,telefonos,celular,oficinatrabajo,direcciontrabajo,telefonotrabajo,fax,puesto,sueldo,fechaingresoempresa,email,ahorromensual,certificadoaportacion,valorcertificado,nombre2,apellido2,cedula2} = req.body;
+ const {nombre,apellido,cedula,estadocivil,direccionresidencial,provincia,telefonos,celular,oficinatrabajo,direcciontrabajo,telefonotrabajo,fax,puesto,sueldo,fechaingresoempresa,email,ahorromensual,certificadoaportacion,valorcertificado,nombre2,apellido2,cedula2,sucursal} = req.body;
  let errors = [];
  //nombre validations
    if (nombre.lenght <=3) {
@@ -176,7 +177,48 @@ request(verifyURL, (err, response, body) => {
         });
         // res.redirect('/');
       };
-    
+      
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            //se indica el usuario y password
+            user: 'ramiperez71@gmail.com',
+            pass: 'Ramesh2627'
+        }
+    });
+if (sucursal === "santo domingo") {
+     //Opciones para el Envio del correo
+const mailOptions = {
+  from: 'ramiperez71@gmail.com',
+  to: 'poner correo here',
+  subject: 'nueva solicitud socio',
+};
+
+//Envio del mail
+transporter.sendMail(mailOptions, function(error,info){
+  //validar que haya habido un error
+  if (error) {
+    console.log(error);
+  }
+})
+}
+if (sucursal === "santiago") {
+      //Opciones para el Envio del correo
+const mailOptions = {
+  from: 'ramiperez71@gmail.com',
+  to: 'poner correo here',
+  subject: 'nueva solicitud socio',
+};
+
+//Envio del mail
+transporter.sendMail(mailOptions, function(error,info){
+  //validar que haya habido un error
+  if (error) {
+    console.log(error);
+  }
+})
+}
+ 
   }
 };
 //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']

@@ -1,3 +1,7 @@
+<style type="text/css">  body{   background-image: url('/img/login3.jpg');  background-position:center;  background-repeat:repeat;  background-attachment:fixed;  }  </style>
+
+
+
 <div class=" col-auto col-md-auto col-lg-12">
   <div class="card ">
     <div class="card-header card-header-rose card-header-icon">
@@ -57,7 +61,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8 col-lg-8 col-sm-8 col-md-8">
+          <div class="col-12 col-lg-8 col-sm-8 col-md-8">
             <label>Dirección Residencial:</label>
             <div class="form-group bmd-form-group">
               <input type="text" name="direccionresidencial" class="form-control" value="{{direccionresidencial}}" required=""
@@ -128,7 +132,7 @@
       </div>
             </div>
           </div>
-          <div class="col-6 col-lg-3 col-md-4">
+          <div class="col-12 col-lg-3 col-md-4">
             <label class="col-sm-0 col-form-label">Fecha de Ingreso Empresa:</label>
             <div class="form-group bmd-form-group">
               <input type="text" name="fechaingresoempresa" class="form-control" value="{{fechaingresoempresa}}" placeholder="" required="">
@@ -169,7 +173,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-8 col-md-8 col-lg-8  col-sm-8">
+            <div class="col-12 col-md-8 col-lg-8  col-sm-8">
               <label class="col-sm-0 col-form-label">Correo Electrónico:</label>
               <div class="form-group bmd-form-group">
                  <input class="form-control" type="email" name="email" value="{{email}}"  placeholder="Opcional" >
@@ -186,7 +190,7 @@
          <h6><p>De ser admitido me comprometo a cumplir con los compromisos tales como: Ahorro Mensual de:</p></h6> 
          
           <div class="row">
-            <div class="col-6 col-md-3 col-lg-3  col-sm-3">
+            <div class="col-10 col-md-3 col-lg-3  col-sm-3">
               <label class="col-sm-0 col-form-label">RD$:</label>
               <div class="form-group bmd-form-group">
                  <input class="form-control" type="text" id="ahorromensual" name="ahorromensual" value="{{ahorromensual}}" required="" >
@@ -238,7 +242,7 @@
       </div>
             </div>
           </div>
-          <div class="col-6 col-lg-3 col-md-4">
+          <div class="col-10 col-lg-3 col-md-4">
             <label class="col-sm-0 col-form-label">Cédula:</label>
             <div class="form-group bmd-form-group">
               <input type="text" name="cedula2" id="cedula2" class="form-control" value="{{cedula2}}" placeholder="" required="">
@@ -248,6 +252,24 @@
             </div>
           </div>
         </div>
+        <br>
+          <br>
+         <h6><p>A continuación elija la Sucursal por donde pasara a firmar la Solicitud:</p></h6> 
+       <div class="row">
+              <div class=" col-12 col-sm-12 col-lg-auto col-md-12 mt-lg-1">
+                <select class="selectpicker" data-size="7" name="sucursal" data-style="select-with-transition"
+                  title="Single Select">
+                  <option value="" disabled selected>Seleccionar</option>
+                  <option value="santo domingo">santo domingo</option>
+                  <option value="santiago">santiago</option>
+                  <option value="constanza">constanza</option>
+                <div class="invalid-feedback">
+                  Seleccione una Sucursal
+                </select>
+                  
+              </div>
+            </div>
+        
         <br><br>
         <div class="text-lg-center">
         <div class="g-recaptcha" data-sitekey="6Lc7Q7MUAAAAAL_yLBT4I7m-k09edUV97VjHoZT_" data-expired-callback="capcha_expired"  name="captcha "id="captcha" data-callback="verifyCaptcha" ></div>

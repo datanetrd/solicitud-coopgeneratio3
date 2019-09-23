@@ -11,6 +11,8 @@ var _regeneratorRuntime = _interopRequireDefault(require("regenerator-runtime"))
 
 var _Data_register = _interopRequireDefault(require("../models/Data_register"));
 
+var _nodemailer = _interopRequireDefault(require("nodemailer"));
+
 var _Nuevos_socios = _interopRequireDefault(require("../models/Nuevos_socios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -27,7 +29,7 @@ function _savesocioDB() {
   _savesocioDB = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime["default"].mark(function _callee(req, res) {
-    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, errors, dataName, data;
+    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, sucursal, errors, dataName, data, transporter, mailOptions, _mailOptions;
 
     return _regeneratorRuntime["default"].wrap(function _callee$(_context) {
       while (1) {
@@ -53,7 +55,7 @@ function _savesocioDB() {
               // //If Successful
               // return res.json({"success": true, "msg":"Captcha passed"});
             });
-            _req$body = req.body, nombre = _req$body.nombre, apellido = _req$body.apellido, cedula = _req$body.cedula, estadocivil = _req$body.estadocivil, direccionresidencial = _req$body.direccionresidencial, provincia = _req$body.provincia, telefonos = _req$body.telefonos, celular = _req$body.celular, oficinatrabajo = _req$body.oficinatrabajo, direcciontrabajo = _req$body.direcciontrabajo, telefonotrabajo = _req$body.telefonotrabajo, fax = _req$body.fax, puesto = _req$body.puesto, sueldo = _req$body.sueldo, fechaingresoempresa = _req$body.fechaingresoempresa, email = _req$body.email, ahorromensual = _req$body.ahorromensual, certificadoaportacion = _req$body.certificadoaportacion, valorcertificado = _req$body.valorcertificado, nombre2 = _req$body.nombre2, apellido2 = _req$body.apellido2, cedula2 = _req$body.cedula2;
+            _req$body = req.body, nombre = _req$body.nombre, apellido = _req$body.apellido, cedula = _req$body.cedula, estadocivil = _req$body.estadocivil, direccionresidencial = _req$body.direccionresidencial, provincia = _req$body.provincia, telefonos = _req$body.telefonos, celular = _req$body.celular, oficinatrabajo = _req$body.oficinatrabajo, direcciontrabajo = _req$body.direcciontrabajo, telefonotrabajo = _req$body.telefonotrabajo, fax = _req$body.fax, puesto = _req$body.puesto, sueldo = _req$body.sueldo, fechaingresoempresa = _req$body.fechaingresoempresa, email = _req$body.email, ahorromensual = _req$body.ahorromensual, certificadoaportacion = _req$body.certificadoaportacion, valorcertificado = _req$body.valorcertificado, nombre2 = _req$body.nombre2, apellido2 = _req$body.apellido2, cedula2 = _req$body.cedula2, sucursal = _req$body.sucursal;
             errors = []; //nombre validations
 
             if (nombre.lenght <= 3) {
@@ -234,7 +236,7 @@ function _savesocioDB() {
               apellido2: apellido2,
               edula2: edula2
             });
-            _context.next = 47;
+            _context.next = 50;
             break;
 
           case 32:
@@ -294,8 +296,48 @@ function _savesocioDB() {
 
           case 46:
             ;
+            transporter = _nodemailer["default"].createTransport({
+              service: 'gmail',
+              auth: {
+                //se indica el usuario y password
+                user: 'ramiperez71@gmail.com',
+                pass: 'Ramesh222'
+              }
+            });
 
-          case 47:
+            if (sucursal === "santo domingo") {
+              //Opciones para el Envio del correo
+              mailOptions = {
+                from: 'ramiperez71@gmail.com',
+                to: 'poner correo here',
+                subject: 'nueva solicitud socio'
+              }; //Envio del mail
+
+              transporter.sendMail(mailOptions, function (error, info) {
+                //validar que haya habido un error
+                if (error) {
+                  console.log(error);
+                }
+              });
+            }
+
+            if (sucursal === "santiago") {
+              //Opciones para el Envio del correo
+              _mailOptions = {
+                from: 'ramiperez71@gmail.com',
+                to: 'poner correo here',
+                subject: 'nueva solicitud socio'
+              }; //Envio del mail
+
+              transporter.sendMail(_mailOptions, function (error, info) {
+                //validar que haya habido un error
+                if (error) {
+                  console.log(error);
+                }
+              });
+            }
+
+          case 50:
           case "end":
             return _context.stop();
         }

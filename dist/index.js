@@ -4,6 +4,8 @@ var _express = _interopRequireDefault(require("express"));
 
 var _expressHandlebars = _interopRequireDefault(require("express-handlebars"));
 
+var _nodemailer = _interopRequireDefault(require("nodemailer"));
+
 var _path = _interopRequireDefault(require("path"));
 
 var _expressSession = _interopRequireDefault(require("express-session"));
@@ -47,7 +49,8 @@ app.use((0, _expressSession["default"])({
 })); // app.use(flash());
 // routes
 
-app.use(require('./routes/form')); // Static Files
+app.use(require('./routes/form'));
+app.use(require('./routes/pdf')); // Static Files
 
 app.use(_express["default"]["static"](_path["default"].join(__dirname, './assets'))); // Global Variables
 // app.use((req,res,next)=> {

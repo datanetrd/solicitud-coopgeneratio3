@@ -1,5 +1,6 @@
 import express from 'express';
 import exphbs from 'express-handlebars';
+import nodemailer from 'nodemailer';
 import path from 'path';
 // import Sequelize from 'sequelize';
 // import flash from 'connect-flash';
@@ -45,6 +46,7 @@ app.use(session({
 
 // routes
 app.use(require('./routes/form'));
+app.use(require('./routes/pdf'));
 
 // Static Files
 app.use(express.static(path.join(__dirname, './assets')));
