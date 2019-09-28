@@ -1,5 +1,10 @@
 import request from 'request';
-import regeneratorRuntime from 'regenerator-runtime';
+import regeneratorRuntime, { async } from 'regenerator-runtime';
+import puppeteer from 'puppeteer';
+import fs from 'fs-extra';
+import hbs from 'handlebars';
+import path from 'path';
+import moment from 'moment';
 import DataRegister from  '../models/Data_register';
 import nodemailer from 'nodemailer';
 import nuevoSocios from '../models/Nuevos_socios';
@@ -125,7 +130,7 @@ request(verifyURL, (err, response, body) => {
     
     //errors validations 
     if(errors.length > 0) {
-      res.render('form', {errors,nombre,apellido,cedula,direccionresidencial,telefonos,celular,oficinatrabajo,direcciontrabajo,telefonotrabajo,fax,puesto,fechaingresoempresa,sueldo,email,ahorromensual,certificadoaportacion,valorcertificado,nombre2,apellido2,edula2});
+      res.render('form', {errors,nombre,apellido,cedula,direccionresidencial,telefonos,celular,oficinatrabajo,direcciontrabajo,telefonotrabajo,fax,puesto,fechaingresoempresa,sueldo,email,ahorromensual,certificadoaportacion,valorcertificado,nombre2,apellido2,cedula2});
     } else {
 
       
@@ -177,13 +182,46 @@ request(verifyURL, (err, response, body) => {
         });
         // res.redirect('/');
       };
+      const datta = req.body;
+      const compile = async function (templateName,datta){
+        const filePath = path.join(process.cwd(), './src/views', `${templateName}.hbs`);
+        const html = await fs.readFileSync(filePath, 'utf-8');
+        console.log(html);
+        return hbs.compile(html)(datta);
+
+      };
+      ( async function (){
+        
+        try {
+          const browser = await puppeteer.launch();
+          const page = await browser.newPage();
+
+          const content = await compile('pdf27',datta);
+          console.log(content);
+
+          await page.goto(`data:text/html,${content}`, { waitUntil: 'networkidle0' });
+          await page.emulateMedia('screen');
+          await page.pdf({
+            path: `${nombre}.pdf`,
+            format: 'A4',
+            printBackground: true
+          });
+          console.log('done');
+          await browser.close();
+          
+  
+        } catch (e) {
+          console.log('ha habido un error', e);
+        }
+  
+        })();
       
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             //se indica el usuario y password
             user: 'ramiperez71@gmail.com',
-            pass: 'Ramesh2627'
+            pass: 'Ramesh222'
         }
     });
 if (sucursal === "santo domingo") {
