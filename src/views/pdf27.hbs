@@ -1,20 +1,254 @@
 <style type="text/css"> 
 
 body{
-			color: rgb(11,68,99);
+			color: rgb(25,68,90);
+         margin: 0;
+         padding: 0;
 		}
+
+
+
 .form-control {
     border: none;
     border-bottom: 1px solid;
+    color: rgb(25,68,90);
+    border-color: rgb(25,68,90);
+    
 }
+.form-control2 {
+    border: none;
+    border-bottom: 1px solid;
+    margin-left: 34%;
+    color: rgb(25,68,90);
+    border-color: rgb(25,68,90);
+    
+}
+{{!-- .form-control1 {
+    border: none;
+    border-bottom: 1px solid;
+
+    color: rgb(25,68,90);
+    border-color: rgb(25,68,90);
+} --}}
+
+h3 {
+color: rgb(25,68,90);
+margin: 18px;
+font-size: 19px;
+text-align: center;
+text-transform: uppercase;
+
+}
+
+p {
+   text-align: center;
+   width: 77%;
+   margin:auto;
+   font-size: 1rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 77%;
+   padding-left: 100px;
+}
+
+
+label {
+   font-size: 1rem;
+   padding-left: 0.2rem;
+}
+
+.input-date {
+margin-top: 20px;
+margin-bottom: 10px;
+
+}
+.col-form-label1 {
+   width: 77%;
+   padding-left: 100px;
+}
+
+.col-form-label2 {
+   padding-left: 501px;
+
+}
+.col-form-label4 {
+   padding-right: 0.4rem;
+
+}
+.col-form-label5 {
+
+padding-left: 39%;
+} 
+.div-img {
+{{!-- background: gray; --}}
+width: 100%;
+}
+
+img {
+   width: 88%;
+   height: auto;
+   margin: auto;
+   display: block;
+   padding-left: 23px;
+   padding-right: 13px;
+   padding-top: 10px;
+}
+
+
     
 </style>
 
+<script type="text/javascript">
+window.onload = function(){
+  let fecha = new Date(); //Fecha actual
+  let mes = fecha.getMonth()+1; //obteniendo mes
+  let dia = fecha.getDate(); //obteniendo dia
+  let year = fecha.getFullYear(); //obteniendo año
+  if(dia<10)
+    dia='0'+dia; //agrega cero si el menor de 10
+  if(mes<10)
+    mes='0'+mes //agrega cero si el menor de 10
+  document.getElementById('fechaing').value=year+"-"+dia+"-"+mes;
+}
+</script>
+<div class="div-img">
 
-  <h1>hello {{nombre}}</h1> 
-  
-           <label class="col-sm-0 col-form-label">Nombres:</label>
-              <input class="form-control" type="text" name="nombre" id="nombre" value="{{nombre}}" required="">
+<img class="img" src="http://img.fenixzone.net/i/TkCqP89.jpeg" alt="logo-registro-coopgeneratio" border="0">
+
+</div>
+
+               <label class="col-sm-0 col-form-label2">FECHA:</label>
+              <input class="form-control input-date" type="date" name="" id="fechaing" value="" required="">
             
 
+<div class="">
+
+   
+        <h3>SOLICITUD DE INGRESO COMO SOCIO A LA COOPERATIVA</h3>
+
+         <p class="p-medio"> Por este medio solicito al Consejo de Administración ser admitido como socio de la Cooperativa de
+             Ahorro, Crédito y Servicios Múltiples GENERATIO NOVA “COOPGENERATIO”, para lo cual
+             me comprometo a cumplir con las disposiciones vigentes de los Estatutos y la Ley 127 sobre
+             asociaciones cooperativas y sus reglamentos.</p>
+          <br>
+          <br>
   
+</div>
+         <div class="row">
+
+           <label class="col-sm-12 col-form-label4">Nombres y Apellidos:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="60" value="{{nombre}} {{apellido}}" required="">
+
+         </div>
+            <div class="row">
+
+           <label class="col-sm-12 col-form-label4">Cédula:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="38" value="{{cedula}}" required="">
+
+           <label class="col-sm-12 col-form-label4">Estado Civil:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="20" value="{{estadocivil}}" required="">
+            </div>
+            
+              <div class="row">
+
+              <label class="col-sm-12 col-form-label4">Dirección Residencial:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="60" value="{{direccionresidencial}}" required="">
+              </div>
+              <div class="row">
+              <label class="col-sm-12 col-form-label4">Provincia:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="33" value="{{provincia}}" required="">
+
+              <label class="col-sm-12 col-form-label4">Telefonos:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="24" value="{{telefonos}}" required="">
+
+              </div>
+              <div class="row">
+
+              <label class="col-sm-12 col-form-label4">Celular:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="31" value="{{celular}}" required="">
+
+              <label class="col-sm-12 col-form-label4">Oficina de trabajo:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="22" value="{{oficinadetrabajo}}" required="">
+
+              </div>
+              <div class="row">
+
+                 <label class="col-sm-12 col-form-label4">Telefono:</label>
+                 <input class="form-control" type="text" name="nombre" id="nombre" size="18" value="{{telefonotrabajo}}" required="">
+
+                 <label class="col-sm-12 col-form-label4">Fax:</label>
+                 <input class="form-control" type="text" name="nombre" id="nombre" size="15" value="{{fax}}" required="">
+
+                 <label class="col-sm-12 col-form-label4">Puesto:</label>
+                 <input class="form-control" type="text" name="nombre" id="nombre" size="18" value="{{puesto}}" required="">
+              </div>
+
+              <div class="row">
+
+                  <label class="col-sm-12 col-form-label4">Fecha de Ingreso Empresa:</label>
+              <input class="form-control" type="text" name="nombre" id="nombre" size="22" value="{{fechaingresoempresa}}" required="">
+
+               <label class="col-sm-12 col-form-label4">Sueldo:</label>
+                 <input class="form-control" type="text" name="nombre" id="nombre" size="23" value="{{sueldo}}" required="">
+                 
+              </div>
+              <div class="row">
+
+                 <label class="col-sm-12 col-form-label4">Dirección electrónica:</label>
+                 <input class="form-control" type="text" name="nombre" id="nombre" size="60" value="{{direccionresidencial}}" required="">
+
+              </div>
+
+            <br>
+            <br>
+
+            <div class="row">
+
+            &nbsp;De ser admitido me comprometo a cumplir con los requisitos tales como: Ahorro Mensual de 
+            </div>
+            <div class="row">
+
+              <label class="col-sm-12 col-form-label4">RD$:</label>   
+            <input class="form-control" type="text" name="nombre" id="nombre" size="73" value="{{ahorromensual}}" required="">   
+
+            </div>
+
+            <div class="row">
+
+               <label class="col-sm-12 col-form-label4">Número de certificados de aportación:</label>   
+               <input class="form-control" type="text" name="nombre" id="nombre" size="46" value="{{certificadoaportacion}}" required=""> 
+
+            </div>
+            <div class="row">
+
+               <label class="col-sm-12 col-form-label4">Certificado de aportación por un valor de RD$:</label>   
+               <input class="form-control" type="text" name="nombre" id="nombre" size="36" value="{{valorcertificado}}" required=""> 
+            </div>
+
+               <br>
+               <br>
+
+            <div class="row">
+
+           &nbsp;En &nbsp; caso &nbsp; de &nbsp; fallecimiento &nbsp; y &nbsp; otro &nbsp; problema &nbsp; de &nbsp; incapacidad &nbsp; entregar  &nbsp; mis &nbsp; ahorros &nbsp; a:
+
+            </div>
+            <div class="row">
+               &nbsp;<input class="form-control" type="text" name="nombre" id="nombre" size="45" value="{{nombre2}} {{apellido2}}" required=""> 
+
+               <label class="col-sm-12 col-form-label4">Cédula:</label> 
+               &nbsp;<input class="form-control" type="text" name="nombre" id="nombre" size="25" value="{{cedula2}}" required=""> 
+               
+            </div>
+
+            <br>
+            <br>
+               &nbsp;<input class="form-control2" type="text" name="nombre" id="nombre" size="35" value="" > 
+            <div class="row">
+
+               <label class="col-sm-12 col-form-label5">Firma del Solicitante:</label>
+
+            </div>

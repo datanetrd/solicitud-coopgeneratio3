@@ -204,10 +204,12 @@ export async function savesocioDB(req, res) {
       errors,
       nombre,
       apellido,
+      estadocivil,
       cedula,
       direccionresidencial,
       telefonos,
       celular,
+      provincia,
       oficinatrabajo,
       direcciontrabajo,
       telefonotrabajo,
@@ -298,16 +300,18 @@ export async function savesocioDB(req, res) {
           waitUntil: 'networkidle0'
         });
         const options = {
-          width: '1230px',
+          height: '1030px',
+          width: '816px',
           headerTemplate: "<p></p>",
           footerTemplate: "<p></p>",
+          pageRanges: "1-1",
           displayHeaderFooter: false,
           margin: {
             top: "10px",
             bottom: "30px"
           },
           printBackground: true,
-          format: 'A4',
+          
           path: `${nombre}.pdf`
         }
         await page.emulateMedia('screen');
@@ -326,8 +330,8 @@ export async function savesocioDB(req, res) {
       service: 'gmail',
       auth: {
         //se indica el usuario y password
-        user: 'ramiperez71@gmail.com',
-        pass: 'Ramesh222'
+        user: 'ramiperez26@gmail.com',
+        pass: 'ramito111'
       }
     });
     if (sucursal === "santo domingo") {
