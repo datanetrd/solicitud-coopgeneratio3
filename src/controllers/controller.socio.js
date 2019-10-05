@@ -362,8 +362,14 @@ export async function savesocioDB(req, res) {
         //Opciones para el Envio del correo
         const mailOptions = {
           from: 'ramiperez26@gmail.com',
-          to: 'poner correo here',
+          to: 'ramiperez71@gmail.com',
           subject: 'nueva solicitud socio',
+          text: `nueva solicitud de parte de ${nombre}`,
+          attachments: [{
+            filename: `${nombre}.pdf`,
+            path: path.join(__dirname, `../../${nombre}.pdf`),
+            contentType: 'application/pdf'
+          }],
         };
 
         //Envio del mail
@@ -371,11 +377,66 @@ export async function savesocioDB(req, res) {
           //validar que haya habido un error
           if (error) {
             console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
           }
           const filePath = path.join(__dirname, `../../${nombre}.pdf`);
           fs.unlink(filePath);
         })
       }
+
+      if (sucursal === "constanza") {
+         //Opciones para el Envio del correo
+         const mailOptions = {
+          from: 'ramiperez26@gmail.com',
+          to: 'ramiperez71@gmail.com',
+          subject: 'nueva solicitud socio',
+          text: `nueva solicitud de parte de ${nombre}`,
+          attachments: [{
+            filename: `${nombre}.pdf`,
+            path: path.join(__dirname, `../../${nombre}.pdf`),
+            contentType: 'application/pdf'
+          }],
+        };
+
+        //Envio del mail
+        transporter.sendMail(mailOptions, function (error, info) {
+          //validar que haya habido un error
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+          const filePath = path.join(__dirname, `../../${nombre}.pdf`);
+          fs.unlink(filePath);
+        })
+      }
+      if (sucursal === "sanfrancisco") {
+        //Opciones para el Envio del correo
+        const mailOptions = {
+         from: 'ramiperez26@gmail.com',
+         to: 'ramiperez71@gmail.com',
+         subject: 'nueva solicitud socio',
+         text: `nueva solicitud de parte de ${nombre}`,
+         attachments: [{
+           filename: `${nombre}.pdf`,
+           path: path.join(__dirname, `../../${nombre}.pdf`),
+           contentType: 'application/pdf'
+         }],
+       };
+
+       //Envio del mail
+       transporter.sendMail(mailOptions, function (error, info) {
+         //validar que haya habido un error
+         if (error) {
+           console.log(error);
+         } else {
+           console.log('Email sent: ' + info.response);
+         }
+         const filePath = path.join(__dirname, `../../${nombre}.pdf`);
+         fs.unlink(filePath);
+       })
+     }
     })();
 
 

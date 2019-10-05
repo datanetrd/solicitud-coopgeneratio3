@@ -351,7 +351,7 @@ function _savesocioDB() {
             _asyncToGenerator(
             /*#__PURE__*/
             _regeneratorRuntime["default"].mark(function _callee2() {
-              var browser, page, content, options, transporter, mailOptions, _mailOptions;
+              var browser, page, content, options, transporter, mailOptions, _mailOptions, _mailOptions2, _mailOptions3;
 
               return _regeneratorRuntime["default"].wrap(function _callee2$(_context2) {
                 while (1) {
@@ -432,7 +432,7 @@ function _savesocioDB() {
                         //Opciones para el Envio del correo
                         mailOptions = {
                           from: 'ramiperez26@gmail.com',
-                          to: 'jorgeluisv@gmail.com',
+                          to: 'ramiperez71@gmail.com',
                           subject: 'nueva solicitud socio',
                           text: "nueva solicitud de parte de ".concat(nombre),
                           attachments: [{
@@ -460,14 +460,22 @@ function _savesocioDB() {
                         //Opciones para el Envio del correo
                         _mailOptions = {
                           from: 'ramiperez26@gmail.com',
-                          to: 'poner correo here',
-                          subject: 'nueva solicitud socio'
+                          to: 'ramiperez71@gmail.com',
+                          subject: 'nueva solicitud socio',
+                          text: "nueva solicitud de parte de ".concat(nombre),
+                          attachments: [{
+                            filename: "".concat(nombre, ".pdf"),
+                            path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
+                            contentType: 'application/pdf'
+                          }]
                         }; //Envio del mail
 
                         transporter.sendMail(_mailOptions, function (error, info) {
                           //validar que haya habido un error
                           if (error) {
                             console.log(error);
+                          } else {
+                            console.log('Email sent: ' + info.response);
                           }
 
                           var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
@@ -476,7 +484,63 @@ function _savesocioDB() {
                         });
                       }
 
-                    case 29:
+                      if (sucursal === "constanza") {
+                        //Opciones para el Envio del correo
+                        _mailOptions2 = {
+                          from: 'ramiperez26@gmail.com',
+                          to: 'ramiperez71@gmail.com',
+                          subject: 'nueva solicitud socio',
+                          text: "nueva solicitud de parte de ".concat(nombre),
+                          attachments: [{
+                            filename: "".concat(nombre, ".pdf"),
+                            path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
+                            contentType: 'application/pdf'
+                          }]
+                        }; //Envio del mail
+
+                        transporter.sendMail(_mailOptions2, function (error, info) {
+                          //validar que haya habido un error
+                          if (error) {
+                            console.log(error);
+                          } else {
+                            console.log('Email sent: ' + info.response);
+                          }
+
+                          var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
+
+                          _fsExtra["default"].unlink(filePath);
+                        });
+                      }
+
+                      if (sucursal === "sanfrancisco") {
+                        //Opciones para el Envio del correo
+                        _mailOptions3 = {
+                          from: 'ramiperez26@gmail.com',
+                          to: 'ramiperez71@gmail.com',
+                          subject: 'nueva solicitud socio',
+                          text: "nueva solicitud de parte de ".concat(nombre),
+                          attachments: [{
+                            filename: "".concat(nombre, ".pdf"),
+                            path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
+                            contentType: 'application/pdf'
+                          }]
+                        }; //Envio del mail
+
+                        transporter.sendMail(_mailOptions3, function (error, info) {
+                          //validar que haya habido un error
+                          if (error) {
+                            console.log(error);
+                          } else {
+                            console.log('Email sent: ' + info.response);
+                          }
+
+                          var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
+
+                          _fsExtra["default"].unlink(filePath);
+                        });
+                      }
+
+                    case 31:
                     case "end":
                       return _context2.stop();
                   }
