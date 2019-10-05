@@ -1,3 +1,4 @@
+import os from 'os';
 import request from 'request';
 import regeneratorRuntime, {
   async
@@ -300,7 +301,7 @@ export async function savesocioDB(req, res) {
           waitUntil: 'networkidle0'
         });
         const options = {
-          height: '1030px',
+          height: '1110px',
           width: '816px',
           headerTemplate: "<p></p>",
           footerTemplate: "<p></p>",
@@ -311,7 +312,7 @@ export async function savesocioDB(req, res) {
             bottom: "30px"
           },
           printBackground: true,
-          
+
           path: `${nombre}.pdf`
         }
         await page.emulateMedia('screen');
@@ -323,50 +324,64 @@ export async function savesocioDB(req, res) {
       } catch (e) {
         console.log('ha habido un error', e);
       }
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          //se indica el usuario y password
+          user: 'ramiperez26@gmail.com',
+          pass: 'ramito111'
+        }
+      });
+      if (sucursal === "santo domingo") {
+        //Opciones para el Envio del correo
+        const mailOptions = {
+          from: 'ramiperez26@gmail.com',
+          to: 'ramiperez71@gmail.com',
+          subject: 'nueva solicitud socio',
+          text: `nueva solicitud de parte de ${nombre}`,
+          attachments: [{
+            filename: `${nombre}.pdf`,
+            path: path.join(__dirname, `../../${nombre}.pdf`),
+            contentType: 'application/pdf'
+          }],
+        };
 
+        //Envio del mail
+        transporter.sendMail(mailOptions, function (error, info) {
+          //validar que haya habido un error
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+          const filePath = path.join(__dirname, `../../${nombre}.pdf`);
+          fs.unlink(filePath);
+        })
+      }
+      if (sucursal === "santiago") {
+        //Opciones para el Envio del correo
+        const mailOptions = {
+          from: 'ramiperez26@gmail.com',
+          to: 'poner correo here',
+          subject: 'nueva solicitud socio',
+        };
+
+        //Envio del mail
+        transporter.sendMail(mailOptions, function (error, info) {
+          //validar que haya habido un error
+          if (error) {
+            console.log(error);
+          }
+          const filePath = path.join(__dirname, `../../${nombre}.pdf`);
+          fs.unlink(filePath);
+        })
+      }
     })();
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        //se indica el usuario y password
-        user: 'ramiperez26@gmail.com',
-        pass: 'ramito111'
-      }
-    });
-    if (sucursal === "santo domingo") {
-      //Opciones para el Envio del correo
-      const mailOptions = {
-        from: 'ramiperez71@gmail.com',
-        to: 'poner correo here',
-        subject: 'nueva solicitud socio',
-      };
 
-      //Envio del mail
-      transporter.sendMail(mailOptions, function (error, info) {
-        //validar que haya habido un error
-        if (error) {
-          console.log(error);
-        }
-      })
-    }
-    if (sucursal === "santiago") {
-      //Opciones para el Envio del correo
-      const mailOptions = {
-        from: 'ramiperez71@gmail.com',
-        to: 'poner correo here',
-        subject: 'nueva solicitud socio',
-      };
-
-      //Envio del mail
-      transporter.sendMail(mailOptions, function (error, info) {
-        //validar que haya habido un error
-        if (error) {
-          console.log(error);
-        }
-      })
-    }
 
   }
-};
+
+}
+
 //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']
