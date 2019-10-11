@@ -37,6 +37,10 @@ cedula.addEventListener("keyup", function(){
     if (cedula.value == ""){
      
     }
+    new Cleave('#cedula', {
+      delimiter:"-",
+      blocks: [ 3,7,1]
+  });
     cedula.value = cedula.value.replace(regex,"");
 })
 
@@ -47,6 +51,10 @@ cedula2.addEventListener("keyup", function(){
     if (cedula2.value == ""){
      
     }
+    new Cleave('#cedula2', {
+      delimiter:"-",
+      blocks: [ 3,7,1]
+  });
     cedula2.value = cedula2.value.replace(regex,"");
 })
 
