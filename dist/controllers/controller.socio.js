@@ -9,9 +9,11 @@ var _os = _interopRequireDefault(require("os"));
 
 var _request = _interopRequireDefault(require("request"));
 
-var _regeneratorRuntime = _interopRequireWildcard(require("regenerator-runtime"));
+require("regenerator-runtime/runtime");
 
 var _puppeteer = _interopRequireDefault(require("puppeteer"));
+
+var _passport = _interopRequireDefault(require("passport"));
 
 var _fsExtra = _interopRequireDefault(require("fs-extra"));
 
@@ -27,8 +29,6 @@ var _nodemailer = _interopRequireDefault(require("nodemailer"));
 
 var _Nuevos_socios = _interopRequireDefault(require("../models/Nuevos_socios"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -43,10 +43,10 @@ function savesocioDB(_x, _x2) {
 function _savesocioDB() {
   _savesocioDB = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime["default"].mark(function _callee3(req, res) {
+  regeneratorRuntime.mark(function _callee3(req, res) {
     var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, sucursal, errors, dataName, data, datta, compile;
 
-    return _regeneratorRuntime["default"].wrap(function _callee3$(_context3) {
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
@@ -320,9 +320,9 @@ function _savesocioDB() {
             function () {
               var _ref = _asyncToGenerator(
               /*#__PURE__*/
-              _regeneratorRuntime["default"].mark(function _callee(templateName, datta) {
+              regeneratorRuntime.mark(function _callee(templateName, datta) {
                 var filePath, html;
-                return _regeneratorRuntime["default"].wrap(function _callee$(_context) {
+                return regeneratorRuntime.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
@@ -350,10 +350,10 @@ function _savesocioDB() {
 
             _asyncToGenerator(
             /*#__PURE__*/
-            _regeneratorRuntime["default"].mark(function _callee2() {
+            regeneratorRuntime.mark(function _callee2() {
               var browser, page, content, options, transporter, mailOptions, _mailOptions, _mailOptions2, _mailOptions3;
 
-              return _regeneratorRuntime["default"].wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:

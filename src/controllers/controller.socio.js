@@ -1,9 +1,8 @@
 import os from 'os';
 import request from 'request';
-import regeneratorRuntime, {
-  async
-} from 'regenerator-runtime';
+import 'regenerator-runtime/runtime';
 import puppeteer from 'puppeteer';
+import passport from 'passport';
 import fs from 'fs-extra';
 import hbs from 'handlebars';
 import path from 'path';
@@ -228,7 +227,12 @@ export async function savesocioDB(req, res) {
     });
   } else {
 
-
+    //  // Look for email coincidence
+    //  const emailUser = await DataRegister.findOne({cedula: cedula});
+    //  if(emailUser) {
+    //    req.flash('error_msg', 'The Email is already in use.');
+    //    res.redirect('/users/signup');
+    //  }
     try {
       let dataName = await nuevoSocios.create({
 
