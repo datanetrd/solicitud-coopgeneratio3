@@ -77,6 +77,9 @@ import {sequelize} from '../config/dbconfig';
     },
     socio_ID: {
         type: Sequelize.INTEGER
+    },
+    nuevosSocioId: {
+        type: Sequelize.INTEGER
     }
 
 },

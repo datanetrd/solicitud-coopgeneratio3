@@ -1,6 +1,6 @@
-{{#each success_msg}}
+{{#if success_msg}}
 <div class="alert alert-success">
-  {{success}}
+   {{success_msg}}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <i class="material-icons">close</i>
                     </button>
@@ -8,7 +8,7 @@
                      </span>
                   </div>
 
-{{/each}}
+{{/if}}
 
 
 {{#each success}}

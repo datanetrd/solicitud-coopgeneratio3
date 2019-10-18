@@ -6,6 +6,10 @@ var _expressHandlebars = _interopRequireDefault(require("express-handlebars"));
 
 var _nodemailer = _interopRequireDefault(require("nodemailer"));
 
+var _connectFlash = _interopRequireDefault(require("connect-flash"));
+
+var _passport = _interopRequireDefault(require("passport"));
+
 var _path = _interopRequireDefault(require("path"));
 
 var _expressSession = _interopRequireDefault(require("express-session"));
@@ -46,21 +50,23 @@ app.use((0, _expressSession["default"])({
   secret: 'mysecret27',
   resave: true,
   saveUninitialized: true
-})); // app.use(flash());
-// routes
+}));
+app.use(_passport["default"].initialize());
+app.use(_passport["default"].session());
+app.use((0, _connectFlash["default"])()); // Global Variables
+
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
+  next();
+}); // routes
 
 app.use(require('./routes/form'));
 app.use(require('./routes/pdf')); // Static Files
 
-app.use(_express["default"]["static"](_path["default"].join(__dirname, './assets'))); // Global Variables
-// app.use((req,res,next)=> {
-//     res.locals.success_msg = req.flash('success_msg');
-//     res.locals.error_msg = req.flash('error_msg');
-//     res.locals.error = req.flash('error');
-//     res.locals.user = req.user || null;
-//     next();
-// });
-// Server is listenning
+app.use(_express["default"]["static"](_path["default"].join(__dirname, './assets'))); // Server is listenning
 
 app.listen(app.get('port'), function () {
   console.log('Server on port', app.get('port'));

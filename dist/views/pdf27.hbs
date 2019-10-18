@@ -112,15 +112,15 @@ img {
 
 <script type="text/javascript">
 window.onload = function(){
-  let fecha = new Date(); //Fecha actual
-  let mes = fecha.getMonth()+1; //obteniendo mes
-  let dia = fecha.getDate(); //obteniendo dia
-  let year = fecha.getFullYear(); //obteniendo año
+  var fecha = new Date(); //Fecha actual
+  var mes = fecha.getMonth()+1; //obteniendo mes
+  var dia = fecha.getDate(); //obteniendo dia
+  var ano = fecha.getFullYear(); //obteniendo año
   if(dia<10)
     dia='0'+dia; //agrega cero si el menor de 10
   if(mes<10)
     mes='0'+mes //agrega cero si el menor de 10
-  document.getElementById('fechaing').value=year+"-"+dia+"-"+mes;
+  document.getElementById('fechaActual').value=ano+"-"+dia+"-"+mes;
 }
 </script>
 <div class="div-img">
@@ -130,7 +130,7 @@ window.onload = function(){
 </div>
 
                <label class="col-sm-0 col-form-label2">FECHA:</label>
-              <input class="form-control input-date" type="date" name="" id="fechaing" value="" required="">
+              <input class="form-control input-date" type="date" name="" id="fechaActual" value="" required="">
             
 
 <div class="">

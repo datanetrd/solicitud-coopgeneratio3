@@ -84,6 +84,9 @@ var DataRegister = _dbconfig.sequelize.define('data_register', {
   },
   socio_ID: {
     type: _sequelize["default"].INTEGER
+  },
+  nuevosSocioId: {
+    type: _sequelize["default"].INTEGER
   }
 }, {
   // createdAt: false,

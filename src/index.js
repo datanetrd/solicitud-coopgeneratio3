@@ -1,6 +1,8 @@
 import express from 'express';
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
+import flash from 'connect-flash';
+import passport from'passport';
 import path from 'path';
 // import Sequelize from 'sequelize';
 // import flash from 'connect-flash';
@@ -41,25 +43,29 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-// app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-
-// routes
-app.use(require('./routes/form'));
-app.use(require('./routes/pdf'));
-
-// Static Files
-app.use(express.static(path.join(__dirname, './assets')));
 
 // Global Variables
-// app.use((req,res,next)=> {
-//     res.locals.success_msg = req.flash('success_msg');
-//     res.locals.error_msg = req.flash('error_msg');
-//     res.locals.error = req.flash('error');
-//     res.locals.user = req.user || null;
-//     next();
-// });
-// Server is listenning
+app.use((req,res,next)=> {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
+    next();
+  });
+
+  // routes
+  app.use(require('./routes/form'));
+  app.use(require('./routes/pdf'));
+  
+  // Static Files
+  app.use(express.static(path.join(__dirname, './assets')));
+
+  
+  // Server is listenning
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
-});
+  });

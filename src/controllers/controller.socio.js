@@ -2,12 +2,12 @@ import os from 'os';
 import request from 'request';
 import 'regenerator-runtime/runtime';
 import puppeteer from 'puppeteer';
-import passport from 'passport';
 import fs from 'fs-extra';
 import hbs from 'handlebars';
 import path from 'path';
 import moment from 'moment';
 import DataRegister from '../models/Data_register';
+import oficinas from '../models/oficinas';
 import nodemailer from 'nodemailer';
 import nuevoSocios from '../models/Nuevos_socios';
 export async function savesocioDB(req, res) {
@@ -227,12 +227,12 @@ export async function savesocioDB(req, res) {
     });
   } else {
 
-    //  // Look for email coincidence
-    //  const emailUser = await DataRegister.findOne({cedula: cedula});
-    //  if(emailUser) {
-    //    req.flash('error_msg', 'The Email is already in use.');
-    //    res.redirect('/users/signup');
-    //  }
+     // Look for cedula coincidence
+     const cedulaUser = await DataRegister.findOne({ where: {cedula: `${cedula}`} });
+     if(cedulaUser) {
+       req.flash('success_msg', 'Usted ya tiene una solicitud en progreso.');
+       res.redirect('/');
+     }else {
     try {
       let dataName = await nuevoSocios.create({
 
@@ -328,6 +328,8 @@ export async function savesocioDB(req, res) {
       } catch (e) {
         console.log('ha habido un error', e);
       }
+      const santoDomingo = await oficinas.findOne({raw: true, attributes: [ 'santodomingo'] });
+      console.log(santoDomingo);
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -340,7 +342,7 @@ export async function savesocioDB(req, res) {
         //Opciones para el Envio del correo
         const mailOptions = {
           from: 'ramiperez26@gmail.com',
-          to: 'ramiperez71@gmail.com',
+          to: `${santoDomingo}`,
           subject: 'nueva solicitud socio',
           text: `nueva solicitud de parte de ${nombre}`,
           attachments: [{
@@ -415,7 +417,7 @@ export async function savesocioDB(req, res) {
           fs.unlink(filePath);
         })
       }
-      if (sucursal === "sanfrancisco") {
+      if (sucursal === "san francisco") {
         //Opciones para el Envio del correo
         const mailOptions = {
          from: 'ramiperez26@gmail.com',
@@ -446,7 +448,7 @@ export async function savesocioDB(req, res) {
 
 
   }
-
+  }
 }
 
 //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']

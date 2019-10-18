@@ -13,8 +13,6 @@ require("regenerator-runtime/runtime");
 
 var _puppeteer = _interopRequireDefault(require("puppeteer"));
 
-var _passport = _interopRequireDefault(require("passport"));
-
 var _fsExtra = _interopRequireDefault(require("fs-extra"));
 
 var _handlebars = _interopRequireDefault(require("handlebars"));
@@ -24,6 +22,8 @@ var _path = _interopRequireDefault(require("path"));
 var _moment = _interopRequireDefault(require("moment"));
 
 var _Data_register = _interopRequireDefault(require("../models/Data_register"));
+
+var _oficinas = _interopRequireDefault(require("../models/oficinas"));
 
 var _nodemailer = _interopRequireDefault(require("nodemailer"));
 
@@ -44,7 +44,7 @@ function _savesocioDB() {
   _savesocioDB = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee3(req, res) {
-    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, sucursal, errors, dataName, data, datta, compile;
+    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, sucursal, errors, cedulaUser, dataName, data, datta, compile;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -253,20 +253,41 @@ function _savesocioDB() {
               apellido2: apellido2,
               cedula2: cedula2
             });
-            _context3.next = 50;
+            _context3.next = 58;
             break;
 
           case 32:
-            _context3.prev = 32;
-            _context3.next = 35;
+            _context3.next = 34;
+            return _Data_register["default"].findOne({
+              where: {
+                cedula: "".concat(cedula)
+              }
+            });
+
+          case 34:
+            cedulaUser = _context3.sent;
+
+            if (!cedulaUser) {
+              _context3.next = 40;
+              break;
+            }
+
+            req.flash('success_msg', 'Usted ya tiene una solicitud en progreso.');
+            res.redirect('/');
+            _context3.next = 58;
+            break;
+
+          case 40:
+            _context3.prev = 40;
+            _context3.next = 43;
             return _Nuevos_socios["default"].create({
               nombre: nombre,
               apellido: apellido
             });
 
-          case 35:
+          case 43:
             dataName = _context3.sent;
-            _context3.next = 38;
+            _context3.next = 46;
             return _Data_register["default"].create({
               nombre: nombre,
               apellido: apellido,
@@ -292,26 +313,26 @@ function _savesocioDB() {
               cedula2: cedula2
             });
 
-          case 38:
+          case 46:
             data = _context3.sent;
 
             if (data) {
               res.redirect('/');
             }
 
-            _context3.next = 46;
+            _context3.next = 54;
             break;
 
-          case 42:
-            _context3.prev = 42;
-            _context3.t0 = _context3["catch"](32);
+          case 50:
+            _context3.prev = 50;
+            _context3.t0 = _context3["catch"](40);
             console.log(_context3.t0);
             res.status(500).json({
               message: 'Algo ha ido Mal',
               data: {}
             }); // res.redirect('/');
 
-          case 46:
+          case 54:
             ;
             datta = req.body;
 
@@ -351,7 +372,7 @@ function _savesocioDB() {
             _asyncToGenerator(
             /*#__PURE__*/
             regeneratorRuntime.mark(function _callee2() {
-              var browser, page, content, options, transporter, mailOptions, _mailOptions, _mailOptions2, _mailOptions3;
+              var browser, page, content, options, santoDomingo, transporter, mailOptions, _mailOptions, _mailOptions2, _mailOptions3;
 
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
@@ -419,6 +440,15 @@ function _savesocioDB() {
                       console.log('ha habido un error', _context2.t0);
 
                     case 26:
+                      _context2.next = 28;
+                      return _oficinas["default"].findOne({
+                        raw: true,
+                        attributes: ['santodomingo']
+                      });
+
+                    case 28:
+                      santoDomingo = _context2.sent;
+                      console.log(santoDomingo);
                       transporter = _nodemailer["default"].createTransport({
                         service: 'gmail',
                         auth: {
@@ -432,7 +462,7 @@ function _savesocioDB() {
                         //Opciones para el Envio del correo
                         mailOptions = {
                           from: 'ramiperez26@gmail.com',
-                          to: 'ramiperez71@gmail.com',
+                          to: "".concat(santoDomingo),
                           subject: 'nueva solicitud socio',
                           text: "nueva solicitud de parte de ".concat(nombre),
                           attachments: [{
@@ -512,7 +542,7 @@ function _savesocioDB() {
                         });
                       }
 
-                      if (sucursal === "sanfrancisco") {
+                      if (sucursal === "san francisco") {
                         //Opciones para el Envio del correo
                         _mailOptions3 = {
                           from: 'ramiperez26@gmail.com',
@@ -540,7 +570,7 @@ function _savesocioDB() {
                         });
                       }
 
-                    case 31:
+                    case 35:
                     case "end":
                       return _context2.stop();
                   }
@@ -548,12 +578,12 @@ function _savesocioDB() {
               }, _callee2, null, [[0, 23]]);
             }))();
 
-          case 50:
+          case 58:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[32, 42]]);
+    }, _callee3, null, [[40, 50]]);
   }));
   return _savesocioDB.apply(this, arguments);
 }
