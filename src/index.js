@@ -1,4 +1,5 @@
 import express from 'express';
+import engines from 'consolidate';
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
 import flash from 'connect-flash';
@@ -33,8 +34,10 @@ app.engine('.hbs', exphbs({
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs'
 }));
-app.set('view engine', '.hbs');
+app.engine('html', engines.swig);
 
+app.set('view engine', 'html'); // also 'html' here.
+app.set('view engine', '.hbs');
 // middleware
 app.use(express.urlencoded({extended: false}));
 // app.use(morgan('dev'));
@@ -59,7 +62,8 @@ app.use((req,res,next)=> {
 
   // routes
   app.use(require('./routes/form'));
-  app.use(require('./routes/pdf'));
+  // app.use(require('./routes/pdf'));
+  app.use(require('./routes/solicitud'));
   
   // Static Files
   app.use(express.static(path.join(__dirname, './assets')));

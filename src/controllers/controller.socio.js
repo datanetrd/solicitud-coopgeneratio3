@@ -5,11 +5,13 @@ import puppeteer from 'puppeteer';
 import fs from 'fs-extra';
 import hbs from 'handlebars';
 import path from 'path';
-import moment from 'moment';
+// import moment from 'moment';
 import DataRegister from '../models/Data_register';
 import oficinas from '../models/oficinas';
 import nodemailer from 'nodemailer';
 import nuevoSocios from '../models/Nuevos_socios';
+import mail from '../config/Email';
+import dbsave from '../config/dbSave';
 export async function savesocioDB(req, res) {
 
   const captcha = req.body['g-recaptcha-response'];
@@ -26,13 +28,13 @@ export async function savesocioDB(req, res) {
   // Make Request To VerifyURL
   request(verifyURL, (err, response, body) => {
     body = JSON.parse(body);
-    console.log(body);
+    // console.log(body);
 
-    // // if not successful
-    // if(body.success !== undefined && !body.success){
-    //   req.flash("error", "Captcha Failed");
-    //   return res.redirect("/");
-    // }
+    // if not successful
+    if(body.success !== undefined && !body.success){
+      req.flash("error_msg", "Captcha Failed");
+      return res.redirect("/");
+    }
 
 
     // //If Successful
@@ -233,59 +235,14 @@ export async function savesocioDB(req, res) {
        req.flash('success_msg', 'Usted ya tiene una solicitud en progreso.');
        res.redirect('/');
      }else {
-    try {
-      let dataName = await nuevoSocios.create({
-
-        nombre,
-        apellido
-      });
-
-      let data = await DataRegister.create({
-
-        nombre,
-        apellido,
-        cedula,
-        estadocivil,
-        direccionresidencial,
-        provincia,
-        telefonos,
-        celular,
-        oficinatrabajo,
-        direcciontrabajo,
-        telefonotrabajo,
-        fax,
-        puesto,
-        sueldo,
-        fechaingresoempresa,
-        email,
-        ahorromensual,
-        certificadoaportacion,
-        valorcertificado,
-        nombre2,
-        apellido2,
-        cedula2
-
-      });
-
-
-      if (data) {
-
-        res.redirect('/');
-      }
-
-    } catch (e) {
-      console.log(e);
-      res.status(500).json({
-        message: 'Algo ha ido Mal',
-        data: {}
-      });
-      // res.redirect('/');
-    };
+       
+    dbsave.save(req,res);
+    
     const datta = req.body;
     const compile = async function (templateName, datta) {
       const filePath = path.join(process.cwd(), './src/views', `${templateName}.hbs`);
       const html = await fs.readFileSync(filePath, 'utf-8');
-      console.log(html);
+      // console.log(html);
       return hbs.compile(html)(datta);
 
     };
@@ -299,7 +256,7 @@ export async function savesocioDB(req, res) {
         const page = await browser.newPage();
 
         const content = await compile('pdf27', datta);
-        console.log(content);
+        // console.log(content);
 
         await page.goto(`data:text/html;charset=UTF-8,${content}`, {
           waitUntil: 'networkidle0'
@@ -328,121 +285,22 @@ export async function savesocioDB(req, res) {
       } catch (e) {
         console.log('ha habido un error', e);
       }
-      const santoDomingo = await oficinas.findOne({raw: true, attributes: [ 'santodomingo'] });
-      console.log(santoDomingo);
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          //se indica el usuario y password
-          user: 'ramiperez26@gmail.com',
-          pass: 'ramito111'
-        }
-      });
-      if (sucursal === "santo domingo") {
-        //Opciones para el Envio del correo
-        const mailOptions = {
-          from: 'ramiperez26@gmail.com',
-          to: `${santoDomingo}`,
-          subject: 'nueva solicitud socio',
-          text: `nueva solicitud de parte de ${nombre}`,
-          attachments: [{
-            filename: `${nombre}.pdf`,
-            path: path.join(__dirname, `../../${nombre}.pdf`),
-            contentType: 'application/pdf'
-          }],
-        };
-
-        //Envio del mail
-        transporter.sendMail(mailOptions, function (error, info) {
-          //validar que haya habido un error
-          if (error) {
-            console.log(error);
-          } else {
-            console.log('Email sent: ' + info.response);
-          }
-          const filePath = path.join(__dirname, `../../${nombre}.pdf`);
-          fs.unlink(filePath);
-        })
+     
+      if (sucursal === "Santo Domingo") {
+        mail.Santodomingo(req,res);
       }
-      if (sucursal === "santiago") {
-        //Opciones para el Envio del correo
-        const mailOptions = {
-          from: 'ramiperez26@gmail.com',
-          to: 'ramiperez71@gmail.com',
-          subject: 'nueva solicitud socio',
-          text: `nueva solicitud de parte de ${nombre}`,
-          attachments: [{
-            filename: `${nombre}.pdf`,
-            path: path.join(__dirname, `../../${nombre}.pdf`),
-            contentType: 'application/pdf'
-          }],
-        };
-
-        //Envio del mail
-        transporter.sendMail(mailOptions, function (error, info) {
-          //validar que haya habido un error
-          if (error) {
-            console.log(error);
-          } else {
-            console.log('Email sent: ' + info.response);
-          }
-          const filePath = path.join(__dirname, `../../${nombre}.pdf`);
-          fs.unlink(filePath);
-        })
-      }
-
-      if (sucursal === "constanza") {
-         //Opciones para el Envio del correo
-         const mailOptions = {
-          from: 'ramiperez26@gmail.com',
-          to: 'ramiperez71@gmail.com',
-          subject: 'nueva solicitud socio',
-          text: `nueva solicitud de parte de ${nombre}`,
-          attachments: [{
-            filename: `${nombre}.pdf`,
-            path: path.join(__dirname, `../../${nombre}.pdf`),
-            contentType: 'application/pdf'
-          }],
-        };
-
-        //Envio del mail
-        transporter.sendMail(mailOptions, function (error, info) {
-          //validar que haya habido un error
-          if (error) {
-            console.log(error);
-          } else {
-            console.log('Email sent: ' + info.response);
-          }
-          const filePath = path.join(__dirname, `../../${nombre}.pdf`);
-          fs.unlink(filePath);
-        })
-      }
-      if (sucursal === "san francisco") {
-        //Opciones para el Envio del correo
-        const mailOptions = {
-         from: 'ramiperez26@gmail.com',
-         to: 'ramiperez71@gmail.com',
-         subject: 'nueva solicitud socio',
-         text: `nueva solicitud de parte de ${nombre}`,
-         attachments: [{
-           filename: `${nombre}.pdf`,
-           path: path.join(__dirname, `../../${nombre}.pdf`),
-           contentType: 'application/pdf'
-         }],
-       };
-
-       //Envio del mail
-       transporter.sendMail(mailOptions, function (error, info) {
-         //validar que haya habido un error
-         if (error) {
-           console.log(error);
-         } else {
-           console.log('Email sent: ' + info.response);
-         }
-         const filePath = path.join(__dirname, `../../${nombre}.pdf`);
-         fs.unlink(filePath);
-       })
-     }
+    if (sucursal === "Santiago") {
+      mail.Santiago(req,res);
+    }
+    if (sucursal === "Constanza") {
+      mail.Constanza(req,res);
+    }
+    if (sucursal === "San Francisco") {
+      mail.Sanfrancisco(req,res);
+    }
+     
+    
+     
     })();
 
 

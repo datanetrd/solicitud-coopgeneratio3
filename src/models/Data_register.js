@@ -2,7 +2,7 @@ import Sequelize from 'sequelize';
 import {sequelize} from '../config/dbconfig';
 
 
- const DataRegister = sequelize.define('data_register', {
+ const DataRegister = sequelize.define('data_registers', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -84,6 +84,7 @@ import {sequelize} from '../config/dbconfig';
 
 },
 {
+    freezeTableName: true,
     // createdAt: false,
     updatedAt: false
 }
