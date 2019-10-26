@@ -1,12 +1,11 @@
 import express from 'express';
-import engines from 'consolidate';
 import exphbs from 'express-handlebars';
 import nodemailer from 'nodemailer';
 import flash from 'connect-flash';
+const methodOverride = require('method-override');
 import passport from'passport';
 import path from 'path';
 // import Sequelize from 'sequelize';
-// import flash from 'connect-flash';
 import session from 'express-session';
 // import request from 'request';
 
@@ -34,13 +33,11 @@ app.engine('.hbs', exphbs({
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs'
 }));
-app.engine('html', engines.swig);
 
-app.set('view engine', 'html'); // also 'html' here.
 app.set('view engine', '.hbs');
 // middleware
 app.use(express.urlencoded({extended: false}));
-// app.use(morgan('dev'));
+app.use(methodOverride('_method'));
 app.use(session({
   secret: 'mysecret27',
   resave: true,
@@ -63,8 +60,10 @@ app.use((req,res,next)=> {
   // routes
   app.use(require('./routes/form'));
   // app.use(require('./routes/pdf'));
-  app.use(require('./routes/solicitud'));
+  // search form
+  app.get('/buscador', (req,res) => res.render('buscador'));
   
+  app.use('/solicitud', require('./routes/solicitud'));
   // Static Files
   app.use(express.static(path.join(__dirname, './assets')));
 

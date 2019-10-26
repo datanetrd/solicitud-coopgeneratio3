@@ -1,5 +1,6 @@
-import Sequelize from 'sequelize';
+import Sequelize, { DataTypes } from 'sequelize';
 import {sequelize} from '../config/dbconfig';
+import moment from 'moment';
 
 import DataRegister from './Data_register'; 
 
@@ -14,8 +15,18 @@ const nuevoSocios = sequelize.define('nuevos_socios', {
     apellido: {
         type: Sequelize.TEXT
     },
+    cedula: {
+        type: Sequelize.TEXT
+    },
     fecha_solicitud: {
-        type: Sequelize.DATE
+        type: DataTypes.DATE,
+        //note here this is the guy that you are looking for                   
+                     get() {
+                           return moment(this.getDataValue('fecha_solicitud')).format('DD/MM/YYYY h:mm: A');
+                       }
+                   },
+    estado_solicitud: {
+        type: Sequelize.TEXT
     }
 },  {
     timestamps: false,
@@ -24,5 +35,6 @@ const nuevoSocios = sequelize.define('nuevos_socios', {
 
 nuevoSocios.hasMany(DataRegister, {foreingKey: 'socio_ID', sourceKey: 'id'});
 DataRegister.belongsTo(nuevoSocios, {foreingKey: 'socio_ID', sourceKey: 'id'});
+nuevoSocios.removeAttribute('nuevosSocioId');
 
 export default nuevoSocios;

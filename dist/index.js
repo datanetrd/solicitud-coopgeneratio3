@@ -18,8 +18,8 @@ var _dbconfig = require("./config/dbconfig");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// import Sequelize from 'sequelize';
-// import flash from 'connect-flash';
+var methodOverride = require('method-override');
+
 // import request from 'request';
 // Initilizations
 var app = (0, _express["default"])(); // Database Connections
@@ -44,8 +44,8 @@ app.set('view engine', '.hbs'); // middleware
 
 app.use(_express["default"].urlencoded({
   extended: false
-})); // app.use(morgan('dev'));
-
+}));
+app.use(methodOverride('_method'));
 app.use((0, _expressSession["default"])({
   secret: 'mysecret27',
   resave: true,
@@ -63,8 +63,13 @@ app.use(function (req, res, next) {
   next();
 }); // routes
 
-app.use(require('./routes/form'));
-app.use(require('./routes/pdf')); // Static Files
+app.use(require('./routes/form')); // app.use(require('./routes/pdf'));
+// search form
+
+app.get('/buscador', function (req, res) {
+  return res.render('buscador');
+});
+app.use('/solicitud', require('./routes/solicitud')); // Static Files
 
 app.use(_express["default"]["static"](_path["default"].join(__dirname, './assets'))); // Server is listenning
 

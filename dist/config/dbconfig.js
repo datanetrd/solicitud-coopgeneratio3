@@ -10,7 +10,7 @@ var _sequelize = _interopRequireDefault(require("sequelize"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var sequelize = new _sequelize["default"]('nuevo_registro', 'root', 'Ramesh2627', {
-  host: 'localhost',
+  host: '127.0.0.1',
   dialect: 'mysql',
   pool: {
     max: 5,

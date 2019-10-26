@@ -11,7 +11,7 @@ var _dbconfig = require("../config/dbconfig");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var DataRegister = _dbconfig.sequelize.define('data_register', {
+var DataRegister = _dbconfig.sequelize.define('data_registers', {
   id: {
     type: _sequelize["default"].INTEGER,
     primaryKey: true
@@ -89,6 +89,7 @@ var DataRegister = _dbconfig.sequelize.define('data_register', {
     type: _sequelize["default"].INTEGER
   }
 }, {
+  freezeTableName: true,
   // createdAt: false,
   updatedAt: false
 });

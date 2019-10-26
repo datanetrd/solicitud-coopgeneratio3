@@ -19,8 +19,6 @@ var _handlebars = _interopRequireDefault(require("handlebars"));
 
 var _path = _interopRequireDefault(require("path"));
 
-var _moment = _interopRequireDefault(require("moment"));
-
 var _Data_register = _interopRequireDefault(require("../models/Data_register"));
 
 var _oficinas = _interopRequireDefault(require("../models/oficinas"));
@@ -28,6 +26,10 @@ var _oficinas = _interopRequireDefault(require("../models/oficinas"));
 var _nodemailer = _interopRequireDefault(require("nodemailer"));
 
 var _Nuevos_socios = _interopRequireDefault(require("../models/Nuevos_socios"));
+
+var _Email = _interopRequireDefault(require("../config/Email"));
+
+var _dbSave = _interopRequireDefault(require("../config/dbSave"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -44,7 +46,7 @@ function _savesocioDB() {
   _savesocioDB = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee3(req, res) {
-    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, sucursal, errors, cedulaUser, dataName, data, datta, compile;
+    var captcha, secretKey, verifyURL, _req$body, nombre, apellido, cedula, estadocivil, direccionresidencial, provincia, telefonos, celular, oficinatrabajo, direcciontrabajo, telefonotrabajo, fax, puesto, sueldo, fechaingresoempresa, email, ahorromensual, certificadoaportacion, valorcertificado, nombre2, apellido2, cedula2, sucursal, errors, cedulaUser, datta, compile;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
@@ -61,14 +63,15 @@ function _savesocioDB() {
             // Make Request To VerifyURL
 
             (0, _request["default"])(verifyURL, function (err, response, body) {
-              body = JSON.parse(body);
-              console.log(body); // // if not successful
-              // if(body.success !== undefined && !body.success){
-              //   req.flash("error", "Captcha Failed");
-              //   return res.redirect("/");
-              // }
-              // //If Successful
+              body = JSON.parse(body); // console.log(body);
+              // if not successful
+
+              if (body.success !== undefined && !body.success) {
+                req.flash("error_msg", "Captcha Failed");
+                return res.redirect("/");
+              } // //If Successful
               // return res.json({"success": true, "msg":"Captcha passed"});
+
             });
             _req$body = req.body, nombre = _req$body.nombre, apellido = _req$body.apellido, cedula = _req$body.cedula, estadocivil = _req$body.estadocivil, direccionresidencial = _req$body.direccionresidencial, provincia = _req$body.provincia, telefonos = _req$body.telefonos, celular = _req$body.celular, oficinatrabajo = _req$body.oficinatrabajo, direcciontrabajo = _req$body.direcciontrabajo, telefonotrabajo = _req$body.telefonotrabajo, fax = _req$body.fax, puesto = _req$body.puesto, sueldo = _req$body.sueldo, fechaingresoempresa = _req$body.fechaingresoempresa, email = _req$body.email, ahorromensual = _req$body.ahorromensual, certificadoaportacion = _req$body.certificadoaportacion, valorcertificado = _req$body.valorcertificado, nombre2 = _req$body.nombre2, apellido2 = _req$body.apellido2, cedula2 = _req$body.cedula2, sucursal = _req$body.sucursal;
             errors = []; //nombre validations
@@ -253,7 +256,7 @@ function _savesocioDB() {
               apellido2: apellido2,
               cedula2: cedula2
             });
-            _context3.next = 58;
+            _context3.next = 36;
             break;
 
           case 32:
@@ -267,323 +270,146 @@ function _savesocioDB() {
           case 34:
             cedulaUser = _context3.sent;
 
-            if (!cedulaUser) {
-              _context3.next = 40;
-              break;
-            }
-
-            req.flash('success_msg', 'Usted ya tiene una solicitud en progreso.');
-            res.redirect('/');
-            _context3.next = 58;
-            break;
-
-          case 40:
-            _context3.prev = 40;
-            _context3.next = 43;
-            return _Nuevos_socios["default"].create({
-              nombre: nombre,
-              apellido: apellido
-            });
-
-          case 43:
-            dataName = _context3.sent;
-            _context3.next = 46;
-            return _Data_register["default"].create({
-              nombre: nombre,
-              apellido: apellido,
-              cedula: cedula,
-              estadocivil: estadocivil,
-              direccionresidencial: direccionresidencial,
-              provincia: provincia,
-              telefonos: telefonos,
-              celular: celular,
-              oficinatrabajo: oficinatrabajo,
-              direcciontrabajo: direcciontrabajo,
-              telefonotrabajo: telefonotrabajo,
-              fax: fax,
-              puesto: puesto,
-              sueldo: sueldo,
-              fechaingresoempresa: fechaingresoempresa,
-              email: email,
-              ahorromensual: ahorromensual,
-              certificadoaportacion: certificadoaportacion,
-              valorcertificado: valorcertificado,
-              nombre2: nombre2,
-              apellido2: apellido2,
-              cedula2: cedula2
-            });
-
-          case 46:
-            data = _context3.sent;
-
-            if (data) {
+            if (cedulaUser) {
+              req.flash('success_msg', 'Usted ya tiene una solicitud en progreso.');
               res.redirect('/');
-            }
+            } else {
+              _dbSave["default"].save(req, res);
 
-            _context3.next = 54;
-            break;
+              datta = req.body;
 
-          case 50:
-            _context3.prev = 50;
-            _context3.t0 = _context3["catch"](40);
-            console.log(_context3.t0);
-            res.status(500).json({
-              message: 'Algo ha ido Mal',
-              data: {}
-            }); // res.redirect('/');
-
-          case 54:
-            ;
-            datta = req.body;
-
-            compile =
-            /*#__PURE__*/
-            function () {
-              var _ref = _asyncToGenerator(
+              compile =
               /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee(templateName, datta) {
-                var filePath, html;
-                return regeneratorRuntime.wrap(function _callee$(_context) {
+              function () {
+                var _ref = _asyncToGenerator(
+                /*#__PURE__*/
+                regeneratorRuntime.mark(function _callee(templateName, datta) {
+                  var filePath, html;
+                  return regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                      switch (_context.prev = _context.next) {
+                        case 0:
+                          filePath = _path["default"].join(process.cwd(), './src/views', "".concat(templateName, ".hbs"));
+                          _context.next = 3;
+                          return _fsExtra["default"].readFileSync(filePath, 'utf-8');
+
+                        case 3:
+                          html = _context.sent;
+                          return _context.abrupt("return", _handlebars["default"].compile(html)(datta));
+
+                        case 5:
+                        case "end":
+                          return _context.stop();
+                      }
+                    }
+                  }, _callee);
+                }));
+
+                return function compile(_x3, _x4) {
+                  return _ref.apply(this, arguments);
+                };
+              }();
+
+              _asyncToGenerator(
+              /*#__PURE__*/
+              regeneratorRuntime.mark(function _callee2() {
+                var browser, page, content, options;
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
                   while (1) {
-                    switch (_context.prev = _context.next) {
+                    switch (_context2.prev = _context2.next) {
                       case 0:
-                        filePath = _path["default"].join(process.cwd(), './src/views', "".concat(templateName, ".hbs"));
-                        _context.next = 3;
-                        return _fsExtra["default"].readFileSync(filePath, 'utf-8');
+                        _context2.prev = 0;
+                        _context2.next = 3;
+                        return _puppeteer["default"].launch({
+                          args: ['--no-sandbox'],
+                          headless: true
+                        });
 
                       case 3:
-                        html = _context.sent;
-                        console.log(html);
-                        return _context.abrupt("return", _handlebars["default"].compile(html)(datta));
+                        browser = _context2.sent;
+                        _context2.next = 6;
+                        return browser.newPage();
 
                       case 6:
+                        page = _context2.sent;
+                        _context2.next = 9;
+                        return compile('pdf27', datta);
+
+                      case 9:
+                        content = _context2.sent;
+                        _context2.next = 12;
+                        return page["goto"]("data:text/html;charset=UTF-8,".concat(content), {
+                          waitUntil: 'networkidle0'
+                        });
+
+                      case 12:
+                        options = {
+                          height: '1110px',
+                          width: '816px',
+                          headerTemplate: "<p></p>",
+                          footerTemplate: "<p></p>",
+                          pageRanges: "1-1",
+                          displayHeaderFooter: false,
+                          margin: {
+                            top: "10px",
+                            bottom: "30px"
+                          },
+                          printBackground: true,
+                          path: "".concat(nombre, ".pdf")
+                        };
+                        _context2.next = 15;
+                        return page.emulateMedia('screen');
+
+                      case 15:
+                        _context2.next = 17;
+                        return page.pdf(options);
+
+                      case 17:
+                        console.log('done');
+                        _context2.next = 20;
+                        return browser.close();
+
+                      case 20:
+                        _context2.next = 25;
+                        break;
+
+                      case 22:
+                        _context2.prev = 22;
+                        _context2.t0 = _context2["catch"](0);
+                        console.log('ha habido un error', _context2.t0);
+
+                      case 25:
+                        if (sucursal === "Santo Domingo") {
+                          _Email["default"].Santodomingo(req, res);
+                        }
+
+                        if (sucursal === "Santiago") {
+                          _Email["default"].Santiago(req, res);
+                        }
+
+                        if (sucursal === "Constanza") {
+                          _Email["default"].Constanza(req, res);
+                        }
+
+                        if (sucursal === "San Francisco") {
+                          _Email["default"].Sanfrancisco(req, res);
+                        }
+
+                      case 29:
                       case "end":
-                        return _context.stop();
+                        return _context2.stop();
                     }
                   }
-                }, _callee);
-              }));
+                }, _callee2, null, [[0, 22]]);
+              }))();
+            }
 
-              return function compile(_x3, _x4) {
-                return _ref.apply(this, arguments);
-              };
-            }();
-
-            _asyncToGenerator(
-            /*#__PURE__*/
-            regeneratorRuntime.mark(function _callee2() {
-              var browser, page, content, options, santoDomingo, transporter, mailOptions, _mailOptions, _mailOptions2, _mailOptions3;
-
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.prev = 0;
-                      _context2.next = 3;
-                      return _puppeteer["default"].launch({
-                        args: ['--no-sandbox'],
-                        headless: true
-                      });
-
-                    case 3:
-                      browser = _context2.sent;
-                      _context2.next = 6;
-                      return browser.newPage();
-
-                    case 6:
-                      page = _context2.sent;
-                      _context2.next = 9;
-                      return compile('pdf27', datta);
-
-                    case 9:
-                      content = _context2.sent;
-                      console.log(content);
-                      _context2.next = 13;
-                      return page["goto"]("data:text/html;charset=UTF-8,".concat(content), {
-                        waitUntil: 'networkidle0'
-                      });
-
-                    case 13:
-                      options = {
-                        height: '1110px',
-                        width: '816px',
-                        headerTemplate: "<p></p>",
-                        footerTemplate: "<p></p>",
-                        pageRanges: "1-1",
-                        displayHeaderFooter: false,
-                        margin: {
-                          top: "10px",
-                          bottom: "30px"
-                        },
-                        printBackground: true,
-                        path: "".concat(nombre, ".pdf")
-                      };
-                      _context2.next = 16;
-                      return page.emulateMedia('screen');
-
-                    case 16:
-                      _context2.next = 18;
-                      return page.pdf(options);
-
-                    case 18:
-                      console.log('done');
-                      _context2.next = 21;
-                      return browser.close();
-
-                    case 21:
-                      _context2.next = 26;
-                      break;
-
-                    case 23:
-                      _context2.prev = 23;
-                      _context2.t0 = _context2["catch"](0);
-                      console.log('ha habido un error', _context2.t0);
-
-                    case 26:
-                      _context2.next = 28;
-                      return _oficinas["default"].findOne({
-                        raw: true,
-                        attributes: ['santodomingo']
-                      });
-
-                    case 28:
-                      santoDomingo = _context2.sent;
-                      console.log(santoDomingo);
-                      transporter = _nodemailer["default"].createTransport({
-                        service: 'gmail',
-                        auth: {
-                          //se indica el usuario y password
-                          user: 'ramiperez26@gmail.com',
-                          pass: 'ramito111'
-                        }
-                      });
-
-                      if (sucursal === "santo domingo") {
-                        //Opciones para el Envio del correo
-                        mailOptions = {
-                          from: 'ramiperez26@gmail.com',
-                          to: "".concat(santoDomingo),
-                          subject: 'nueva solicitud socio',
-                          text: "nueva solicitud de parte de ".concat(nombre),
-                          attachments: [{
-                            filename: "".concat(nombre, ".pdf"),
-                            path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
-                            contentType: 'application/pdf'
-                          }]
-                        }; //Envio del mail
-
-                        transporter.sendMail(mailOptions, function (error, info) {
-                          //validar que haya habido un error
-                          if (error) {
-                            console.log(error);
-                          } else {
-                            console.log('Email sent: ' + info.response);
-                          }
-
-                          var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
-
-                          _fsExtra["default"].unlink(filePath);
-                        });
-                      }
-
-                      if (sucursal === "santiago") {
-                        //Opciones para el Envio del correo
-                        _mailOptions = {
-                          from: 'ramiperez26@gmail.com',
-                          to: 'ramiperez71@gmail.com',
-                          subject: 'nueva solicitud socio',
-                          text: "nueva solicitud de parte de ".concat(nombre),
-                          attachments: [{
-                            filename: "".concat(nombre, ".pdf"),
-                            path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
-                            contentType: 'application/pdf'
-                          }]
-                        }; //Envio del mail
-
-                        transporter.sendMail(_mailOptions, function (error, info) {
-                          //validar que haya habido un error
-                          if (error) {
-                            console.log(error);
-                          } else {
-                            console.log('Email sent: ' + info.response);
-                          }
-
-                          var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
-
-                          _fsExtra["default"].unlink(filePath);
-                        });
-                      }
-
-                      if (sucursal === "constanza") {
-                        //Opciones para el Envio del correo
-                        _mailOptions2 = {
-                          from: 'ramiperez26@gmail.com',
-                          to: 'ramiperez71@gmail.com',
-                          subject: 'nueva solicitud socio',
-                          text: "nueva solicitud de parte de ".concat(nombre),
-                          attachments: [{
-                            filename: "".concat(nombre, ".pdf"),
-                            path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
-                            contentType: 'application/pdf'
-                          }]
-                        }; //Envio del mail
-
-                        transporter.sendMail(_mailOptions2, function (error, info) {
-                          //validar que haya habido un error
-                          if (error) {
-                            console.log(error);
-                          } else {
-                            console.log('Email sent: ' + info.response);
-                          }
-
-                          var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
-
-                          _fsExtra["default"].unlink(filePath);
-                        });
-                      }
-
-                      if (sucursal === "san francisco") {
-                        //Opciones para el Envio del correo
-                        _mailOptions3 = {
-                          from: 'ramiperez26@gmail.com',
-                          to: 'ramiperez71@gmail.com',
-                          subject: 'nueva solicitud socio',
-                          text: "nueva solicitud de parte de ".concat(nombre),
-                          attachments: [{
-                            filename: "".concat(nombre, ".pdf"),
-                            path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
-                            contentType: 'application/pdf'
-                          }]
-                        }; //Envio del mail
-
-                        transporter.sendMail(_mailOptions3, function (error, info) {
-                          //validar que haya habido un error
-                          if (error) {
-                            console.log(error);
-                          } else {
-                            console.log('Email sent: ' + info.response);
-                          }
-
-                          var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
-
-                          _fsExtra["default"].unlink(filePath);
-                        });
-                      }
-
-                    case 35:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2, null, [[0, 23]]);
-            }))();
-
-          case 58:
+          case 36:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[40, 50]]);
+    }, _callee3);
   }));
   return _savesocioDB.apply(this, arguments);
 }
