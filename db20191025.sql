@@ -48,11 +48,11 @@ CREATE TABLE `data_registers` (
   `cedula2` varchar(45) NOT NULL,
   `socio_id` int(11) DEFAULT NULL,
   `createdAt` timestamp NOT NULL,
-  `nuevosSocioId` int(11) DEFAULT NULL,
+  `nuevosSocioId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `data_socio` (`socio_id`),
   CONSTRAINT `data_socio` FOREIGN KEY (`socio_id`) REFERENCES `nuevos_socios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=503 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=549 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,24 +66,26 @@ CREATE TABLE `nuevos_socios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
-  `fecha_solicitud` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cedula` text NOT NULL,
+  `fecha_solicitud` datetime DEFAULT CURRENT_TIMESTAMP,
+  `estado_solicitud` varchar(45) NOT NULL DEFAULT 'En espera',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=531 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=577 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `oficinas`
+-- Table structure for table `sucursal`
 --
 
-DROP TABLE IF EXISTS `oficinas`;
+DROP TABLE IF EXISTS `sucursal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `oficinas` (
-  `santodomingo` text,
-  `santiago` text,
-  `constanza` text,
-  `sanfrancisco` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `sucursal` (
+  `sucursalcol` int(11) NOT NULL AUTO_INCREMENT,
+  `Oficina` text,
+  `Email_Oficina` text,
+  PRIMARY KEY (`sucursalcol`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -95,4 +97,4 @@ CREATE TABLE `oficinas` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-18 18:37:44
+-- Dump completed on 2019-10-25 20:29:03
