@@ -2,7 +2,9 @@ import path from 'path';
 import fs from 'fs-extra';
 import nodemailer from 'nodemailer';
 import oficinas from '../models/oficinas';
-import { async } from 'regenerator-runtime';
+import {
+    async
+} from 'regenerator-runtime';
 
 
 
@@ -16,7 +18,9 @@ const transporter = nodemailer.createTransport({
 });
 const Santodomingo = async function (req, res) {
     const {
-        nombre
+        nombre,
+        apellido,
+        cedula
     } = req.body;
     const santoDomingo = await oficinas.findOne({
         where: {
@@ -27,10 +31,10 @@ const Santodomingo = async function (req, res) {
     const mailOptions = {
         from: 'ramiperez26@gmail.com',
         to: `${santoDomingo.Email_Oficina}`,
-        subject: 'nueva solicitud socio',
-        text: `nueva solicitud de parte de ${nombre}`,
+        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
+        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
         attachments: [{
-            filename: `${nombre}.pdf`,
+            filename: `${cedula}.pdf`,
             path: path.join(__dirname, `../../${nombre}.pdf`),
             contentType: 'application/pdf'
         }],
@@ -40,6 +44,8 @@ const Santodomingo = async function (req, res) {
     transporter.sendMail(mailOptions, function (error, info) {
         //validar que haya habido un error
         if (error) {
+            req.flash('error_msg', 'ha habido un error.');
+            res.redirect('/');
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
@@ -50,7 +56,9 @@ const Santodomingo = async function (req, res) {
 }
 const Santiago = async function (req, res) {
     const {
-        nombre
+        nombre,
+        apellido,
+        cedula
     } = req.body;
     const santiago = await oficinas.findOne({
         where: {
@@ -61,8 +69,8 @@ const Santiago = async function (req, res) {
     const mailOptions = {
         from: 'ramiperez26@gmail.com',
         to: `${santiago.Email_Oficina}`,
-        subject: 'nueva solicitud socio',
-        text: `nueva solicitud de parte de ${nombre}`,
+        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
+        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
         attachments: [{
             filename: `${nombre}.pdf`,
             path: path.join(__dirname, `../../${nombre}.pdf`),
@@ -74,6 +82,8 @@ const Santiago = async function (req, res) {
     transporter.sendMail(mailOptions, function (error, info) {
         //validar que haya habido un error
         if (error) {
+            req.flash('error_msg', 'ha habido un error.');
+            res.redirect('/');
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
@@ -85,7 +95,9 @@ const Santiago = async function (req, res) {
 
 const Constanza = async function (req, res) {
     const {
-        nombre
+        nombre,
+        apellido,
+        cedula
     } = req.body;
     const constanza = await oficinas.findOne({
         where: {
@@ -96,8 +108,8 @@ const Constanza = async function (req, res) {
     const mailOptions = {
         from: 'ramiperez26@gmail.com',
         to: `${constanza.Email_Oficina}`,
-        subject: 'nueva solicitud socio',
-        text: `nueva solicitud de parte de ${nombre}`,
+        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
+        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
         attachments: [{
             filename: `${nombre}.pdf`,
             path: path.join(__dirname, `../../${nombre}.pdf`),
@@ -109,6 +121,8 @@ const Constanza = async function (req, res) {
     transporter.sendMail(mailOptions, function (error, info) {
         //validar que haya habido un error
         if (error) {
+            req.flash('error_msg', 'ha habido un error.');
+            res.redirect('/');
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
@@ -119,7 +133,9 @@ const Constanza = async function (req, res) {
 }
 const Sanfrancisco = async function (req, res) {
     const {
-        nombre
+        nombre,
+        apellido,
+        cedula
     } = req.body;
     const sanFrancisco = await oficinas.findOne({
         where: {
@@ -130,8 +146,8 @@ const Sanfrancisco = async function (req, res) {
     const mailOptions = {
         from: 'ramiperez26@gmail.com',
         to: `${sanFrancisco.Email_Oficina}`,
-        subject: 'nueva solicitud socio',
-        text: `nueva solicitud de parte de ${nombre}`,
+        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
+        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
         attachments: [{
             filename: `${nombre}.pdf`,
             path: path.join(__dirname, `../../${nombre}.pdf`),
@@ -143,6 +159,8 @@ const Sanfrancisco = async function (req, res) {
     transporter.sendMail(mailOptions, function (error, info) {
         //validar que haya habido un error
         if (error) {
+            req.flash('error_msg', 'ha habido un error.');
+            res.redirect('/');
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);

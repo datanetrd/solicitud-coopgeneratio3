@@ -9,8 +9,8 @@ var router = (0, _express.Router)(); // import request from 'request';
 
 // const db = require('../../config/dbConnection');
 // const validations = require('../../config/validations');
-router.get('/', function (req, res) {
+router.get('/form', function (req, res) {
   res.render('form');
 });
-router.post('/', _controller.savesocioDB);
+router.post('/form', _controller.savesocioDB);
 module.exports = router; // res.redirect('/');

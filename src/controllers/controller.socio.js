@@ -31,9 +31,9 @@ export async function savesocioDB(req, res) {
     // console.log(body);
 
     // if not successful
-    if(body.success !== undefined && !body.success){
+    if (body.success !== undefined && !body.success) {
       req.flash("error_msg", "Captcha Failed");
-      return res.redirect("/");
+      return res.redirect("/form");
     }
 
 
@@ -229,84 +229,102 @@ export async function savesocioDB(req, res) {
     });
   } else {
 
-     // Look for cedula coincidence
-     const cedulaUser = await DataRegister.findOne({ where: {cedula: `${cedula}`} });
-     if(cedulaUser) {
-       req.flash('success_msg', 'Usted ya tiene una solicitud en progreso.');
-       res.redirect('/');
-     }else {
-       
-    dbsave.save(req,res);
-    
-    const datta = req.body;
-    const compile = async function (templateName, datta) {
-      const filePath = path.join(process.cwd(), './src/views', `${templateName}.hbs`);
-      const html = await fs.readFileSync(filePath, 'utf-8');
-      // console.log(html);
-      return hbs.compile(html)(datta);
+    // Look for cedula coincidence
+    const cedulaUser = await DataRegister.findOne({
+      where: {
+        cedula: `${cedula}`
+      }
+    });
+    if (cedulaUser) {
+      req.flash('error_msg', 'Usted ya tiene una solicitud en progreso.');
+      res.redirect('/');
+    } else {
 
-    };
-    (async function () {
+      dbsave.save(req, res);
 
-      try {
-        const browser = await puppeteer.launch({
-          args: ['--no-sandbox'],
-          headless: true
-        });
-        const page = await browser.newPage();
+      const datta = req.body;
+      const compile = async function (templateName, datta) {
+        const filePath = path.join(process.cwd(), './src/views', `${templateName}.hbs`);
+        const html = await fs.readFileSync(filePath, 'utf-8');
+        // console.log(html);
+        return hbs.compile(html)(datta);
 
-        const content = await compile('pdf27', datta);
-        // console.log(content);
+      };
+      (async function () {
 
-        await page.goto(`data:text/html;charset=UTF-8,${content}`, {
-          waitUntil: 'networkidle0'
-        });
-        const options = {
-          height: '1110px',
-          width: '816px',
-          headerTemplate: "<p></p>",
-          footerTemplate: "<p></p>",
-          pageRanges: "1-1",
-          displayHeaderFooter: false,
-          margin: {
-            top: "10px",
-            bottom: "30px"
-          },
-          printBackground: true,
+        try {
+          const browser = await puppeteer.launch({
+            args: ['--no-sandbox'],
+            headless: true
+          });
+          const page = await browser.newPage();
 
-          path: `${nombre}.pdf`
+          const content = await compile('pdf27', datta);
+          // console.log(content);
+
+          await page.goto(`data:text/html;charset=UTF-8,${content}`, {
+            waitUntil: 'networkidle0'
+          });
+          const options = {
+            height: '1110px',
+            width: '816px',
+            headerTemplate: "<p></p>",
+            footerTemplate: "<p></p>",
+            pageRanges: "1-1",
+            displayHeaderFooter: false,
+            margin: {
+              top: "10px",
+              bottom: "30px"
+            },
+            printBackground: true,
+
+            path: `${nombre}.pdf`
+          }
+          await page.emulateMedia('screen');
+          await page.pdf(options);
+          console.log('done');
+          await browser.close();
+
+
+        } catch (e) {
+          req.flash('error_msg', 'ha habido un error.');
+          res.redirect('/form');
+          console.log(e);
         }
-        await page.emulateMedia('screen');
-        await page.pdf(options);
-        console.log('done');
-        await browser.close();
+
+        try {
+
+          if (sucursal === "Santo Domingo") {
+            mail.Santodomingo(req, res);
+          }
+          if (sucursal === "Santiago") {
+            mail.Santiago(req, res);
+          }
+          if (sucursal === "Constanza") {
+            mail.Constanza(req, res);
+          }
+          if (sucursal === "San Francisco") {
+            mail.Sanfrancisco(req, res);
+          }
+        } catch (error) {
+          req.flash('error_msg', 'ha habido un error.');
+          res.redirect('/form');
+          console.log(error);
+        }
 
 
-      } catch (e) {
-        console.log('ha habido un error', e);
-      }
-     
-      if (sucursal === "Santo Domingo") {
-        mail.Santodomingo(req,res);
-      }
-    if (sucursal === "Santiago") {
-      mail.Santiago(req,res);
+
+      })();
+
+
+
     }
-    if (sucursal === "Constanza") {
-      mail.Constanza(req,res);
-    }
-    if (sucursal === "San Francisco") {
-      mail.Sanfrancisco(req,res);
-    }
-     
-    
-     
-    })();
-
-
 
   }
-  }
+
+  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+  res.redirect('/');
+
 }
 
 //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']

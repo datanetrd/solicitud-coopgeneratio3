@@ -64,7 +64,7 @@ const save = async function(req,res) {
   
   
         if (data) {
-  
+          req.flash('success_msg', 'Solicitud Enviada Correctamente.');
           res.redirect('/');
         }
   

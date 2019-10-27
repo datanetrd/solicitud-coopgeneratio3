@@ -65,6 +65,7 @@ function () {
             data = _context.sent;
 
             if (data) {
+              req.flash('success_msg', 'Solicitud Enviada Correctamente.');
               res.redirect('/');
             }
 

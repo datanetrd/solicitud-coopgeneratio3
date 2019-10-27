@@ -1,11 +1,113 @@
-<style type="text/css">  body{   background-image: url('/img/login3.jpg');  background-position:center;  background-repeat:repeat;  background-attachment:fixed;  } .card { margin-left: 28%;}  </style>
+<style type="text/css">  body{   background-image: url('/img/login3.jpg');  background-position:center;  background-repeat:repeat;  background-attachment:fixed;  }   </style>
+<div class="row justify-content-center">
 
+<div class=" col-12 col-md-12 col-lg-10">
+  {{!-- <div class="wrapper "> --}}
+    {{!-- <div class="main-panel"> --}}
+      {{!-- <div class="content"> --}}
+        {{!-- <div class="container-fluid"> --}}
+          {{!-- <div class="container-fluid"> --}}
+<div class="card">
+                  <div class="card-header card-header-icon card-header-rose">
+                    <div class="card-icon">
+                      <i class="material-icons">assignment</i>
+                    </div>
+                    <h4 class="card-title ">Solicitud</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+						{{#each nuevos_socios}}
+						<form action="/solicitud/edit/{{id}}?_method=PUT" id="Form1" method="POST">
+						</form>
+						<form action="/solicitud/delete/{{id}}?_method=DELETE" id="Form2" method="POST">
+						</form>
+                      <table class="table">
+                        <thead class=" text-primary">
+                          <th>
+                            ID
+                          </th>
+                          <th>
+                            Nombre
+                          </th>
+                          <th>
+                            Apellido
+                          </th>
+                          <th>
+                            Cedula
+                          </th>
+                          <th>
+                            Estado Solicitud
+                          </th>
+                          <th>
+                           	Fecha Solicitud	
+                          </th>
+                          <th>
+                            Acciones
+                          </th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              {{id}}
+                            </td>
+                            <td>
+                              {{nombre}}
+                            </td>
+                            <td>
+                             {{apellido}}
+                            </td>
+                            <td>
+                              {{cedula}}
+                            </td>
+                            <td>
+                              {{estado_solicitud}}
+                            </td>
+                            <td>
+                              {{fecha_solicitud}}
+                            </td>
+                            <td>
+                             <input type="hidden" name="_method" value="PUT">
+						<button class="enlace" name="acept" form="Form1" value="Aceptada">Aceptar</button>
+							|
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="enlace1" form="Form2" type="submit">Rechazar</button>
+                            </td>
+											
+                          </tr>
+                          
+                        </tbody>
+                      </table>
+					  {{else}}
+            
+  <div class=" mx-auto">
+    <div class="card-body">
+      <h1>Sorry!</h1>
+      <p class="lead">No se ha encontrado la Solicitud.</p>
+      <a href="/buscador" class="btn btn-rose btn-round col text-center">Volver atras</a>
+    </div>
+  </div>
+{{/each}}
+                    </div>
+                  </div>
+                </div>
 
-{{!-- <div class="row"> --}}
+		{{!-- </div> --}}
 
+		  {{!-- </div> --}}
 
-	{{#each nuevos_socios}}
-<table>
+  {{!-- </div> --}}
+    
+
+	{{!-- </div> --}}
+      
+
+	  {{!-- </div> --}}
+</div>
+</div>
+                
+
+	
+{{!-- <table>
 			<tr>
 				<th>ID</th>
 				<th>Nombre</th>
@@ -46,13 +148,4 @@
 			
 		
 		</table>
-		{{else}}
-  <div class="card mx-auto">
-    <div class="card-body">
-      <h1>Sorry! {{user.name}}</h1>
-      <p class="lead">No se ha encontrado la Solicitud.</p>
-      <a href="/buscador" class="btn btn-rose btn-round col text-center">Volver atras</a>
-    </div>
-  </div>
-{{/each}}
-{{!-- </div> --}}
+		 --}}

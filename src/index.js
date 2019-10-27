@@ -59,6 +59,7 @@ app.use((req,res,next)=> {
 
   // routes
   app.use(require('./routes/form'));
+  app.use(require('./routes/home'));
   // app.use(require('./routes/pdf'));
   // search form
   app.get('/buscador', (req,res) => res.render('buscador'));

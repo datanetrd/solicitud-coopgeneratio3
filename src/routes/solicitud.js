@@ -14,16 +14,17 @@ const router = Router();
 
 
     
-  router.put('/edit/:id', (req,res) =>{
+  router.put('/edit/:id', async (req,res) =>{
   const {acept} = req.body;
   const {id} = req.params;
   var values = { estado_solicitud: acept };
   var selector = { 
     where: {id}  
   };
-  nuevoSocios.update(values, selector)
+  await nuevoSocios.update(values, selector)
   .then(function() {
-      res.redirect('/buscador')
+    req.flash('success_msg', 'Solicitud Aceptada Correctamente.');
+    res.redirect('/buscador');
   })
   .catch(error => {
   // error handling
@@ -32,13 +33,14 @@ const router = Router();
   });
 
 
-  router.delete('/delete/:id', (req,res) =>{
+  router.delete('/delete/:id', async (req,res) =>{
     const {id} = req.params;
-    console.log(id);
-    nuevoSocios.destroy({where: {id:id}})
-    DataRegister.destroy({where: {id:id}})
+    // console.log(id);
+   await nuevoSocios.destroy({where: {id:id}})
+   await DataRegister.destroy({where: {id:id}})
     .then(function() {
-      res.redirect('/buscador')
+      req.flash('success_msg', 'Solicitud rechazada correctamente.');
+      res.redirect('/buscador');
   })
   .catch(error => {
   // error handling
@@ -47,11 +49,11 @@ const router = Router();
 
 
 // Search for solicitudes
-router.get('/search', (req, res) => {
+router.get('/search', async (req, res) => {
   let { cedula } = req.query;
 
 
-  nuevoSocios.findAll({ where: {cedula: `${cedula}`} })
+ await nuevoSocios.findAll({ where: {cedula: `${cedula}`} })
     .then(nuevos_socios => res.render('solicitud', { nuevos_socios }))
     .catch(err => console.log(err));
 });

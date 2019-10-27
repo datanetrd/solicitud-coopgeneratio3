@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `nuevo_registro` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `nuevo_registro`;
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: nuevo_registro
@@ -52,7 +54,7 @@ CREATE TABLE `data_registers` (
   PRIMARY KEY (`id`),
   KEY `data_socio` (`socio_id`),
   CONSTRAINT `data_socio` FOREIGN KEY (`socio_id`) REFERENCES `nuevos_socios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=549 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +72,7 @@ CREATE TABLE `nuevos_socios` (
   `fecha_solicitud` datetime DEFAULT CURRENT_TIMESTAMP,
   `estado_solicitud` varchar(45) NOT NULL DEFAULT 'En espera',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=577 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,11 +83,11 @@ DROP TABLE IF EXISTS `sucursal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sucursal` (
-  `sucursalcol` int(11) NOT NULL AUTO_INCREMENT,
+  `sucursalcol` varchar(45) NOT NULL,
   `Oficina` text,
   `Email_Oficina` text,
   PRIMARY KEY (`sucursalcol`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -97,4 +99,4 @@ CREATE TABLE `sucursal` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-25 20:29:03
+-- Dump completed on 2019-10-26 16:58:15

@@ -31,12 +31,13 @@ function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee(req, res) {
-    var nombre, santoDomingo, mailOptions;
+    var _req$body, nombre, apellido, cedula, santoDomingo, mailOptions;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            nombre = req.body.nombre;
+            _req$body = req.body, nombre = _req$body.nombre, apellido = _req$body.apellido, cedula = _req$body.cedula;
             _context.next = 3;
             return _oficinas["default"].findOne({
               where: {
@@ -50,10 +51,10 @@ function () {
             mailOptions = {
               from: 'ramiperez26@gmail.com',
               to: "".concat(santoDomingo.Email_Oficina),
-              subject: 'nueva solicitud socio',
-              text: "nueva solicitud de parte de ".concat(nombre),
+              subject: "nueva solicitud para socio ".concat(nombre, " ").concat(cedula),
+              text: "nueva solicitud de parte de ".concat(nombre, " ").concat(apellido),
               attachments: [{
-                filename: "".concat(nombre, ".pdf"),
+                filename: "".concat(cedula, ".pdf"),
                 path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
                 contentType: 'application/pdf'
               }]
@@ -62,6 +63,8 @@ function () {
             transporter.sendMail(mailOptions, function (error, info) {
               //validar que haya habido un error
               if (error) {
+                req.flash('error_msg', 'ha habido un error.');
+                res.redirect('/');
                 console.log(error);
               } else {
                 console.log('Email sent: ' + info.response);
@@ -91,12 +94,13 @@ function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(req, res) {
-    var nombre, santiago, mailOptions;
+    var _req$body2, nombre, apellido, cedula, santiago, mailOptions;
+
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            nombre = req.body.nombre;
+            _req$body2 = req.body, nombre = _req$body2.nombre, apellido = _req$body2.apellido, cedula = _req$body2.cedula;
             _context2.next = 3;
             return _oficinas["default"].findOne({
               where: {
@@ -110,8 +114,8 @@ function () {
             mailOptions = {
               from: 'ramiperez26@gmail.com',
               to: "".concat(santiago.Email_Oficina),
-              subject: 'nueva solicitud socio',
-              text: "nueva solicitud de parte de ".concat(nombre),
+              subject: "nueva solicitud para socio ".concat(nombre, " ").concat(cedula),
+              text: "nueva solicitud de parte de ".concat(nombre, " ").concat(apellido),
               attachments: [{
                 filename: "".concat(nombre, ".pdf"),
                 path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
@@ -122,6 +126,8 @@ function () {
             transporter.sendMail(mailOptions, function (error, info) {
               //validar que haya habido un error
               if (error) {
+                req.flash('error_msg', 'ha habido un error.');
+                res.redirect('/');
                 console.log(error);
               } else {
                 console.log('Email sent: ' + info.response);
@@ -151,12 +157,13 @@ function () {
   var _ref3 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee3(req, res) {
-    var nombre, constanza, mailOptions;
+    var _req$body3, nombre, apellido, cedula, constanza, mailOptions;
+
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            nombre = req.body.nombre;
+            _req$body3 = req.body, nombre = _req$body3.nombre, apellido = _req$body3.apellido, cedula = _req$body3.cedula;
             _context3.next = 3;
             return _oficinas["default"].findOne({
               where: {
@@ -170,8 +177,8 @@ function () {
             mailOptions = {
               from: 'ramiperez26@gmail.com',
               to: "".concat(constanza.Email_Oficina),
-              subject: 'nueva solicitud socio',
-              text: "nueva solicitud de parte de ".concat(nombre),
+              subject: "nueva solicitud para socio ".concat(nombre, " ").concat(cedula),
+              text: "nueva solicitud de parte de ".concat(nombre, " ").concat(apellido),
               attachments: [{
                 filename: "".concat(nombre, ".pdf"),
                 path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
@@ -182,6 +189,8 @@ function () {
             transporter.sendMail(mailOptions, function (error, info) {
               //validar que haya habido un error
               if (error) {
+                req.flash('error_msg', 'ha habido un error.');
+                res.redirect('/');
                 console.log(error);
               } else {
                 console.log('Email sent: ' + info.response);
@@ -211,12 +220,13 @@ function () {
   var _ref4 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee4(req, res) {
-    var nombre, sanFrancisco, mailOptions;
+    var _req$body4, nombre, apellido, cedula, sanFrancisco, mailOptions;
+
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            nombre = req.body.nombre;
+            _req$body4 = req.body, nombre = _req$body4.nombre, apellido = _req$body4.apellido, cedula = _req$body4.cedula;
             _context4.next = 3;
             return _oficinas["default"].findOne({
               where: {
@@ -230,8 +240,8 @@ function () {
             mailOptions = {
               from: 'ramiperez26@gmail.com',
               to: "".concat(sanFrancisco.Email_Oficina),
-              subject: 'nueva solicitud socio',
-              text: "nueva solicitud de parte de ".concat(nombre),
+              subject: "nueva solicitud para socio ".concat(nombre, " ").concat(cedula),
+              text: "nueva solicitud de parte de ".concat(nombre, " ").concat(apellido),
               attachments: [{
                 filename: "".concat(nombre, ".pdf"),
                 path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
@@ -242,6 +252,8 @@ function () {
             transporter.sendMail(mailOptions, function (error, info) {
               //validar que haya habido un error
               if (error) {
+                req.flash('error_msg', 'ha habido un error.');
+                res.redirect('/');
                 console.log(error);
               } else {
                 console.log('Email sent: ' + info.response);

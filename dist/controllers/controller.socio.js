@@ -68,7 +68,7 @@ function _savesocioDB() {
 
               if (body.success !== undefined && !body.success) {
                 req.flash("error_msg", "Captcha Failed");
-                return res.redirect("/");
+                return res.redirect("/form");
               } // //If Successful
               // return res.json({"success": true, "msg":"Captcha passed"});
 
@@ -271,7 +271,7 @@ function _savesocioDB() {
             cedulaUser = _context3.sent;
 
             if (cedulaUser) {
-              req.flash('success_msg', 'Usted ya tiene una solicitud en progreso.');
+              req.flash('error_msg', 'Usted ya tiene una solicitud en progreso.');
               res.redirect('/');
             } else {
               _dbSave["default"].save(req, res);
@@ -370,32 +370,40 @@ function _savesocioDB() {
                         return browser.close();
 
                       case 20:
-                        _context2.next = 25;
+                        _context2.next = 27;
                         break;
 
                       case 22:
                         _context2.prev = 22;
                         _context2.t0 = _context2["catch"](0);
-                        console.log('ha habido un error', _context2.t0);
+                        req.flash('error_msg', 'ha habido un error.');
+                        res.redirect('/form');
+                        console.log(_context2.t0);
 
-                      case 25:
-                        if (sucursal === "Santo Domingo") {
-                          _Email["default"].Santodomingo(req, res);
+                      case 27:
+                        try {
+                          if (sucursal === "Santo Domingo") {
+                            _Email["default"].Santodomingo(req, res);
+                          }
+
+                          if (sucursal === "Santiago") {
+                            _Email["default"].Santiago(req, res);
+                          }
+
+                          if (sucursal === "Constanza") {
+                            _Email["default"].Constanza(req, res);
+                          }
+
+                          if (sucursal === "San Francisco") {
+                            _Email["default"].Sanfrancisco(req, res);
+                          }
+                        } catch (error) {
+                          req.flash('error_msg', 'ha habido un error.');
+                          res.redirect('/form');
+                          console.log(error);
                         }
 
-                        if (sucursal === "Santiago") {
-                          _Email["default"].Santiago(req, res);
-                        }
-
-                        if (sucursal === "Constanza") {
-                          _Email["default"].Constanza(req, res);
-                        }
-
-                        if (sucursal === "San Francisco") {
-                          _Email["default"].Sanfrancisco(req, res);
-                        }
-
-                      case 29:
+                      case 28:
                       case "end":
                         return _context2.stop();
                     }
@@ -405,6 +413,10 @@ function _savesocioDB() {
             }
 
           case 36:
+            req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+            res.redirect('/');
+
+          case 38:
           case "end":
             return _context3.stop();
         }

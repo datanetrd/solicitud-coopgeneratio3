@@ -36,7 +36,7 @@ msg-error {
 /*****************************************************************/
 
 
-/*=============== LISTA USUARIO =============*/
+/* =============== LISTA USUARIO =============
 #container h1{
 	font-size: 35px;
 	display: inline-block;
@@ -107,7 +107,7 @@ table td{
 
 }
 /*============ Paginador =============*/
-.paginador ul{
+/* .paginador ul{
 	padding: 15px;
 	list-style: none;
 	background: #FFF;
@@ -137,7 +137,7 @@ table td{
 	border: 1px solid #428bca;
 }
 /*============ Buscador ============*/
-.form_search{
+/* .form_search{
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -157,38 +157,39 @@ table td{
 	margin-left: 10px;
 }
 
-.enlace {
-	display:inline;
-	border:0;
-	padding:0;
-	margin:0;
-	text-decoration:underline;
-	background:none;
-	color:#25e414;
-	font-family: arial, sans-serif;
-	font-size: 1em;
-	line-height:1em;
-  }
-.enlace1 {
-	display:inline;
-	border:0;
-	padding:0;
-	margin:0;
-	text-decoration:underline;
-	background:none;
-	color:#e41414;
-	font-family: arial, sans-serif;
-	font-size: 1em;
-	line-height:1em;
-  }
-  
-  .enlace:hover {
-	text-decoration:none;
-	color:#11cc00;
-	cursor:pointer;
-  }
-  .enlace1:hover {
-	text-decoration:none;
-	color:#cc001b;
-	cursor:pointer;
-  }
+} */ 
+	.enlace {
+		display:inline;
+		border:0;
+		padding:0;
+		margin:0;
+		text-decoration:underline;
+		background:none;
+		color:#25e414;
+		font-family: arial, sans-serif;
+		font-size: 1em;
+		line-height:1em;
+	  }
+	.enlace1 {
+		display:inline;
+		border:0;
+		padding:0;
+		margin:0;
+		text-decoration:underline;
+		background:none;
+		color:#e41414;
+		font-family: arial, sans-serif;
+		font-size: 1em;
+		line-height:1em;
+	  }
+	  
+	  .enlace:hover {
+		text-decoration:none;
+		color:#11cc00;
+		cursor:pointer;
+	  }
+	  .enlace1:hover {
+		text-decoration:none;
+		color:#cc001b;
+		cursor:pointer;
+	  }

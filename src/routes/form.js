@@ -5,12 +5,12 @@ const router = Router();
 import {savesocioDB} from '../controllers/controller.socio';
   // const db = require('../../config/dbConnection');
 // const validations = require('../../config/validations');
-router.get('/', (req,res) => {
+router.get('/form', (req,res) => {
     res.render('form');
 });
 
 
-router.post('/', savesocioDB)
+router.post('/form', savesocioDB)
   
   
  

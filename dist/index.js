@@ -63,7 +63,8 @@ app.use(function (req, res, next) {
   next();
 }); // routes
 
-app.use(require('./routes/form')); // app.use(require('./routes/pdf'));
+app.use(require('./routes/form'));
+app.use(require('./routes/home')); // app.use(require('./routes/pdf'));
 // search form
 
 app.get('/buscador', function (req, res) {
