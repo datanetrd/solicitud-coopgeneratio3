@@ -1,2 +1,2 @@
 # solicitud-coopgeneratio
-registro nuevos socios coopgeneartio
+registro nuevos socios coopgeneratio
