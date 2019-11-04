@@ -64,8 +64,7 @@ const save = async function(req,res) {
   
   
         if (data) {
-          req.flash('success_msg', 'Solicitud Enviada Correctamente.');
-          res.redirect('/');
+         console.log('dataSave');
         }
   
       } catch (e) {
@@ -74,7 +73,7 @@ const save = async function(req,res) {
           message: 'Algo ha ido Mal',
           data: {}
         });
-        // res.redirect('/');
+        return
       };
 }
 

@@ -84,7 +84,6 @@ import {sequelize} from '../config/dbconfig';
 
 },
 {
-    freezeTableName: true,
     // createdAt: false,
     updatedAt: false
 }

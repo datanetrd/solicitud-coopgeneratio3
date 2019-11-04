@@ -1,8 +1,9 @@
-import {Router} from 'express';
 import { async } from 'regenerator-runtime';
+import {Router} from 'express';
+const router = Router();
 import nuevoSocios from '../models/Nuevos_socios';
 import DataRegister from '../models/Data_register'; 
-const router = Router();
+import passport from 'passport';
 
 // router.get('/', async (req, res) => 
 //   await nuevoSocios.findAll()
@@ -33,7 +34,7 @@ const router = Router();
   });
 
 
-  router.delete('/delete/:id', async (req,res) =>{
+  router.delete('/delete/:id',async (req,res) =>{
     const {id} = req.params;
     // console.log(id);
    await nuevoSocios.destroy({where: {id:id}})
@@ -43,13 +44,13 @@ const router = Router();
       res.redirect('/buscador');
   })
   .catch(error => {
-  // error handling
+  console.log(error);
   })
   })
 
 
 // Search for solicitudes
-router.get('/search', async (req, res) => {
+router.get('/search',async (req, res) => {
   let { cedula } = req.query;
 
 

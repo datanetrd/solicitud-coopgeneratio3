@@ -2,50 +2,49 @@ import path from 'path';
 import fs from 'fs-extra';
 import nodemailer from 'nodemailer';
 import oficinas from '../models/oficinas';
+import {mail} from './config';
 import {
     async
 } from 'regenerator-runtime';
 
+const transporter = nodemailer.createTransport(
+    mail
+);
 
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        //se indica el usuario y password
-        user: 'ramiperez26@gmail.com',
-        pass: 'ramito111'
-    }
-});
-const Santodomingo = async function (req, res) {
+const SolicitudSucursal = async function (req, res) {
     const {
         nombre,
         apellido,
-        cedula
+        cedula,
+        sucursal
     } = req.body;
-    const santoDomingo = await oficinas.findOne({
+    //envio de email
+    const DestinoSucursal = await oficinas.findOne({
         where: {
-            Oficina: 'Santo Domingo'
+            oficina: sucursal
         }
     });
-    //Opciones para el Envio del correo
-    const mailOptions = {
-        from: 'ramiperez26@gmail.com',
-        to: `${santoDomingo.Email_Oficina}`,
-        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
-        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
-        attachments: [{
-            filename: `${cedula}.pdf`,
-            path: path.join(__dirname, `../../${nombre}.pdf`),
-            contentType: 'application/pdf'
-        }],
-    };
+    
+    
+    //Opcionoes envio email
+        const mailOptions = {
+            from: 'ramiperez26@gmail.com',
+            //Destino del correo
+            to: `${DestinoSucursal.Email_Oficina}`,
+            subject: `Nueva solicitud para socio ${nombre} ${cedula}`,
+            text: `Nueva solicitud de parte de ${nombre} ${apellido}`,
+            attachments: [{
+                filename: `${cedula}.pdf`,
+                path: path.join(__dirname, `../../${nombre}.pdf`),
+                contentType: 'application/pdf'
+            }],
+        };
 
-    //Envio del mail
+         //Envio del mail
     transporter.sendMail(mailOptions, function (error, info) {
         //validar que haya habido un error
         if (error) {
-            req.flash('error_msg', 'ha habido un error.');
-            res.redirect('/');
+            
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
@@ -53,128 +52,9 @@ const Santodomingo = async function (req, res) {
         const filePath = path.join(__dirname, `../../${nombre}.pdf`);
         fs.unlink(filePath);
     })
-}
-const Santiago = async function (req, res) {
-    const {
-        nombre,
-        apellido,
-        cedula
-    } = req.body;
-    const santiago = await oficinas.findOne({
-        where: {
-            Oficina: 'Santiago'
-        }
-    });
-    //Opciones para el Envio del correo
-    const mailOptions = {
-        from: 'ramiperez26@gmail.com',
-        to: `${santiago.Email_Oficina}`,
-        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
-        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
-        attachments: [{
-            filename: `${nombre}.pdf`,
-            path: path.join(__dirname, `../../${nombre}.pdf`),
-            contentType: 'application/pdf'
-        }],
+
     };
-
-    //Envio del mail
-    transporter.sendMail(mailOptions, function (error, info) {
-        //validar que haya habido un error
-        if (error) {
-            req.flash('error_msg', 'ha habido un error.');
-            res.redirect('/');
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-        const filePath = path.join(__dirname, `../../${nombre}.pdf`);
-        fs.unlink(filePath);
-    })
-}
-
-const Constanza = async function (req, res) {
-    const {
-        nombre,
-        apellido,
-        cedula
-    } = req.body;
-    const constanza = await oficinas.findOne({
-        where: {
-            Oficina: 'Constanza'
-        }
-    });
-    //Opciones para el Envio del correo
-    const mailOptions = {
-        from: 'ramiperez26@gmail.com',
-        to: `${constanza.Email_Oficina}`,
-        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
-        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
-        attachments: [{
-            filename: `${nombre}.pdf`,
-            path: path.join(__dirname, `../../${nombre}.pdf`),
-            contentType: 'application/pdf'
-        }],
-    };
-
-    //Envio del mail
-    transporter.sendMail(mailOptions, function (error, info) {
-        //validar que haya habido un error
-        if (error) {
-            req.flash('error_msg', 'ha habido un error.');
-            res.redirect('/');
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-        const filePath = path.join(__dirname, `../../${nombre}.pdf`);
-        fs.unlink(filePath);
-    })
-}
-const Sanfrancisco = async function (req, res) {
-    const {
-        nombre,
-        apellido,
-        cedula
-    } = req.body;
-    const sanFrancisco = await oficinas.findOne({
-        where: {
-            Oficina: 'San Francisco'
-        }
-    });
-    //Opciones para el Envio del correo
-    const mailOptions = {
-        from: 'ramiperez26@gmail.com',
-        to: `${sanFrancisco.Email_Oficina}`,
-        subject: `nueva solicitud para socio ${nombre} ${cedula}`,
-        text: `nueva solicitud de parte de ${nombre} ${apellido}`,
-        attachments: [{
-            filename: `${nombre}.pdf`,
-            path: path.join(__dirname, `../../${nombre}.pdf`),
-            contentType: 'application/pdf'
-        }],
-    };
-
-    //Envio del mail
-    transporter.sendMail(mailOptions, function (error, info) {
-        //validar que haya habido un error
-        if (error) {
-            req.flash('error_msg', 'ha habido un error.');
-            res.redirect('/');
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-        const filePath = path.join(__dirname, `../../${nombre}.pdf`);
-        fs.unlink(filePath);
-    })
-}
-
-
 
 module.exports = {
-    Santodomingo,
-    Santiago,
-    Constanza,
-    Sanfrancisco
-}
+    SolicitudSucursal
+};

@@ -14,6 +14,20 @@
       }, false);
     }, false);
   })();
+(function() {
+    'use strict';
+  
+    window.addEventListener('load', function() {
+      var form = document.getElementById('needs-validationn');
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    }, false);
+  })();
 
 function submitUserForm() {
   var response = grecaptcha.getResponse();
@@ -127,3 +141,102 @@ ahorro.addEventListener("keyup", function(){
   });
     ahorro.value = ahorro.value.replace(regex,"");
 })
+
+// var headers = new Headers();
+// headers.append('Content-Type', 'application/json');
+// headers.append('Accept', 'application/json');
+
+// return fetch('/login', {
+//     method: 'POST',
+//     mode: 'same-origin',
+//     redirect: 'follow',
+//     credentials: 'include', // Don't forget to specify this if you need cookies
+//     headers: headers,
+//     body: JSON.stringify({
+//         _id: 'John',
+//         email: 'Doe'
+//     })
+// })
+
+// var url = '/login';
+
+// // ajax call
+// $.ajax({
+//     url: url,
+//     dataType : 'jsonp',
+//     beforeSend : function(xhr) {
+//       // set header if JWT is set
+//       if ($window.sessionStorage.token) {
+//           xhr.setRequestHeader("Authorization", "Bearer " +  $window.sessionStorage.token);
+//       }
+
+//     },
+//     error : function() {
+//       // error handler
+//     },
+//     success: function(data) {
+//         // success handler
+//     }
+// });
+
+// var token = window.localStorage.getItem('token');
+
+// if (token) {
+//   $.ajaxSetup({
+//     headers: {
+//       'x-access-token': token
+//     }
+//   });
+// }
+
+
+
+
+
+
+
+
+
+// var local_data =!{JSON.stringify(title)}
+// const authToken = res.token
+// localStorage.setItem('token', res.token);
+// fetch('/user/data', {
+//   method: 'GET',
+//   headers: {
+//     'Authorization': 'Bearer' + authToken
+//   }
+// })
+// .then(res => res.json())
+// .then(data => { console.log(data) })
+// .catch(err => { console.log(err) })
+
+
+// function login(event) {
+//   event.preventDefault();
+//   let formData = new FormData(event.target);
+
+//   fetch("/login", {
+//           method: 'POST',
+//           body: formData 
+//   }).then(function (response) {          
+//           return response.json();
+//       }).then(function (result) {
+//           if (result.auth === true) {
+//               localStorage.token = result.token;
+//           //HERE IS THE PROBLEM
+//              $.ajax({ 
+//                type : "GET", 
+//                url : "/admin", 
+//                beforeSend: function(xhr){
+//               xhr.setRequestHeader('access-token', localStorage.token);
+//                           },
+//       success : function(result) { 
+//                //HERE IS THE PROBLEM                
+//              window.location='/admin';
+//                }
+//               }); 
+//           } else {
+//               console.log("Incorrect username or password.");
+//           }
+//       });       
+// }

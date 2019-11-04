@@ -1,15 +1,16 @@
+import dotenv from 'dotenv';dotenv.config();
 import express from 'express';
-import exphbs from 'express-handlebars';
-import nodemailer from 'nodemailer';
-import flash from 'connect-flash';
-const methodOverride = require('method-override');
-import passport from'passport';
 import path from 'path';
-// import Sequelize from 'sequelize';
+import exphbs from 'express-handlebars';
+import cookieParser from 'cookie-parser';
+import flash from 'connect-flash';
+import methodOverride from 'method-override';
 import session from 'express-session';
-// import request from 'request';
-
-
+// import passport and passport-jwt modules
+import passport  from 'passport';
+// import passportJWT from 'passport-jwt';
+// import User from './models/User';
+import Authtoken from './middleware/Authtoken';
 
 // Initilizations
 const app = express();
@@ -24,6 +25,7 @@ import {sequelize} from './config/dbconfig';
   .catch(function (err) {
     console.log('Unable to connect to the database:', err);
   });
+
 // Setings
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, './views'));
@@ -31,23 +33,32 @@ app.engine('.hbs', exphbs({
     defaultLayout: 'main',
     layoutDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: {
+      admin: ''
+    }
 }));
-
 app.set('view engine', '.hbs');
-// middleware
+app.use(express.static(path.join(__dirname, './assets')));
+app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
+
+// initializate Cookies
+var cookieSecret = process.env.COOKIE_SECRET;
+app.use(cookieParser(cookieSecret ))
+// expres-session initializate
 app.use(session({
-  secret: 'mysecret27',
-  resave: true,
-  saveUninitialized: true
+  secret: 'RthG27',
+  resave: false,
+  saveUninitialized: false,
 }));
+
+//passport Initializate
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
+// passport.use(strategy);
 app.use(flash());
-
-
 // Global Variables
 app.use((req,res,next)=> {
     res.locals.success_msg = req.flash('success_msg');
@@ -57,16 +68,24 @@ app.use((req,res,next)=> {
     next();
   });
 
+  // customs middlewares
+  app.use(Authtoken);
+
   // routes
   app.use(require('./routes/form'));
+  app.use(require('./routes/logout'));
+  app.use(require('./routes/signup'));
+  app.use(require('./routes/signin'));
   app.use(require('./routes/home'));
-  // app.use(require('./routes/pdf'));
+
   // search form
-  app.get('/buscador', (req,res) => res.render('buscador'));
+  app.get('/buscador', (req,res) =>{
+    var token = req.cookies['SystemAuth'];
+    res.render('buscador', {token});
+  }); 
   
   app.use('/solicitud', require('./routes/solicitud'));
   // Static Files
-  app.use(express.static(path.join(__dirname, './assets')));
 
   
   // Server is listenning

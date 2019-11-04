@@ -1,0 +1,83 @@
+<style type="text/css">
+  body {
+    overflow: hidden;
+    color: #fff;
+    background-image: url('/img/login3.jpg');
+    background-position: center;
+    background-repeat: repeat;
+    background-attachment: fixed;
+  }
+
+  .login-pagee {
+    padding-top: 10vh;
+  }
+  .footer a {
+    color: #00b1f7;
+  }
+</style>
+
+<div class="wrapper wrapper-full-page">
+  {{!-- <div class="row justify-content-center">    --}}
+  <div class="login-pagee animated fadeInDown delay-1s ">
+    <div class="container">
+      <div class="col-lg-4 col-md-6 col-sm-6 ml-auto mr-auto">
+        <form class="form" method="POST" id="needs-validationn" novalidate action="/login">
+          <div class="card card-login card-hidden">
+            <div class="card-header card-header-rose text-center">
+              <h4 class="card-title">Login</h4>
+
+            </div>
+            <div class="card-body ">
+
+              <span class="bmd-form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">face</i>
+                    </span>
+                  </div>
+                  <input class="form-control" type="text" name="email" id="nombre" value="{{email}}"
+                    placeholder="Email..." required="">
+                  <div class="invalid-feedback text-lg-center">
+                    Ingrese un Usuario
+                  </div>
+                </div>
+              </span>
+              <span class="bmd-form-group">
+
+              </span>
+              <span class="bmd-form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                  </div>
+                  <input type="password" class="form-control" name="password" placeholder="Contraseña..." required="">
+                  <div class="invalid-feedback text-lg-center">
+                    Ingrese una contraseña
+                  </div>
+                </div>
+              </span>
+            </div>
+            <div class="card-footer justify-content-center">
+              <input type="submit" value="Ingresar" class="btn btn-rose btn-link btn-lg">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {{!-- </div> --}}
+  <footer class="footer">
+    <div class="container">
+
+      <div class="copyright float-right">
+        <script>
+          document.write(new Date().getFullYear())
+        </script>, Sistema creado por
+         <a href="/" target="">@Silent_snake27</a>
+      </div>
+    </div>
+  </footer>
+</div>

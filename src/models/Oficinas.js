@@ -11,7 +11,6 @@ const oficinas = sequelize.define('sucursal', {
 },
 {
     primaryKey: false,   
-    freezeTableName: true,
     createdAt: false,
     updatedAt: false
 }

@@ -6,7 +6,8 @@ const router = Router();
 
 
 router.get('/', (req,res) =>{
-res.render('home');
+    var token = req.cookies['SystemAuth'];
+res.render('home', {token});
 });
 
 module.exports  = router;

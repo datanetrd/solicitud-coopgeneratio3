@@ -2,7 +2,7 @@ import {Router} from 'express';
 const router = Router();
 // import request from 'request';
 // const {nuevoSocios} = require('../models/nuevos_socios');
-import {savesocioDB} from '../controllers/controller.socio';
+import {savesocioDB} from '../controllers/Form.Controller';
   // const db = require('../../config/dbConnection');
 // const validations = require('../../config/validations');
 router.get('/form', (req,res) => {
@@ -10,7 +10,10 @@ router.get('/form', (req,res) => {
 });
 
 
-router.post('/form', savesocioDB)
+router.post('/form', savesocioDB, (req,res) =>{
+  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+  res.redirect('/');
+});
   
   
  

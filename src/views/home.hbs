@@ -5,8 +5,28 @@
 
 
 
- 
-      <div class="row justify-content-center">
+ {{#if token}}
+
+    <div class="row justify-content-center">
+ <div class="col-lg-6 cards">
+
+                  <div class="card card-pricing card-raised">
+                    <div class="card-body">
+                      <h6 class="card-category">Coopgeneratio Nova</h6>
+                      <div class="card-icon icon-rose">
+                        <i class="material-icons">search</i>
+                      </div>
+                      <h3 class="card-title">Buscar solicitudes</h3>
+                      {{!-- <p class="card-description">
+                        This is good if your company size is between 2 and 10 Persons.
+                      </p> --}}
+                      <a href="/buscador" class="btn btn-rose btn-round">Ir al buscador</a>
+                    </div>
+                  </div>
+                </div>
+      </div>
+  {{else}}
+ <div class="row justify-content-center">
  <div class="col-lg-6 cards">
 
                   <div class="card card-pricing card-raised">
@@ -24,3 +44,7 @@
                   </div>
                 </div>
       </div>
+
+  {{/if}}
+
+     
