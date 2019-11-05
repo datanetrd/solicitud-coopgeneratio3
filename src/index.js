@@ -35,8 +35,9 @@ app.engine('.hbs', exphbs({
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
     helpers: {
-      admin: function(a, b, opts) {
-        if(a == b) // Or === depending on your needs
+      admin: function(req,res, opts) {
+        if(req.cookies['SystemAuth'].lenght > 0) // Or === depending on your needs
+        
             return opts.fn(this);
         else
             return opts.inverse(this); }
