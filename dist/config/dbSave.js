@@ -65,11 +65,10 @@ function () {
             data = _context.sent;
 
             if (data) {
-              req.flash('success_msg', 'Solicitud Enviada Correctamente.');
-              res.redirect('/');
+              console.log('dataSave');
             }
 
-            _context.next = 15;
+            _context.next = 16;
             break;
 
           case 11:
@@ -79,12 +78,13 @@ function () {
             res.status(500).json({
               message: 'Algo ha ido Mal',
               data: {}
-            }); // res.redirect('/');
-
-          case 15:
-            ;
+            });
+            return _context.abrupt("return");
 
           case 16:
+            ;
+
+          case 17:
           case "end":
             return _context.stop();
         }

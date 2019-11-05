@@ -1,26 +1,31 @@
 "use strict";
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 var _express = _interopRequireDefault(require("express"));
-
-var _expressHandlebars = _interopRequireDefault(require("express-handlebars"));
-
-var _nodemailer = _interopRequireDefault(require("nodemailer"));
-
-var _connectFlash = _interopRequireDefault(require("connect-flash"));
-
-var _passport = _interopRequireDefault(require("passport"));
 
 var _path = _interopRequireDefault(require("path"));
 
+var _expressHandlebars = _interopRequireDefault(require("express-handlebars"));
+
+var _cookieParser = _interopRequireDefault(require("cookie-parser"));
+
+var _connectFlash = _interopRequireDefault(require("connect-flash"));
+
+var _methodOverride = _interopRequireDefault(require("method-override"));
+
 var _expressSession = _interopRequireDefault(require("express-session"));
+
+var _passport = _interopRequireDefault(require("passport"));
+
+var _Authtoken = _interopRequireDefault(require("./middleware/Authtoken"));
 
 var _dbconfig = require("./config/dbconfig");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var methodOverride = require('method-override');
+_dotenv["default"].config();
 
-// import request from 'request';
 // Initilizations
 var app = (0, _express["default"])(); // Database Connections
 
@@ -38,21 +43,31 @@ app.engine('.hbs', (0, _expressHandlebars["default"])({
   defaultLayout: 'main',
   layoutDir: _path["default"].join(app.get('views'), 'layouts'),
   partialsDir: _path["default"].join(app.get('views'), 'partials'),
-  extname: '.hbs'
+  extname: '.hbs',
+  helpers: {
+    admin: ''
+  }
 }));
-app.set('view engine', '.hbs'); // middleware
-
+app.set('view engine', '.hbs');
+app.use(_express["default"]["static"](_path["default"].join(__dirname, './assets')));
+app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: false
 }));
-app.use(methodOverride('_method'));
+app.use((0, _methodOverride["default"])('_method')); // initializate Cookies
+
+var cookieSecret = process.env.COOKIE_SECRET;
+app.use((0, _cookieParser["default"])(cookieSecret)); // expres-session initializate
+
 app.use((0, _expressSession["default"])({
-  secret: 'mysecret27',
-  resave: true,
-  saveUninitialized: true
-}));
-app.use(_passport["default"].initialize());
-app.use(_passport["default"].session());
+  secret: 'RthG27',
+  resave: false,
+  saveUninitialized: false
+})); //passport Initializate
+
+app.use(_passport["default"].initialize()); // app.use(passport.session());
+// passport.use(strategy);
+
 app.use((0, _connectFlash["default"])()); // Global Variables
 
 app.use(function (req, res, next) {
@@ -61,18 +76,24 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   next();
-}); // routes
+}); // customs middlewares
+
+app.use(_Authtoken["default"]); // routes
 
 app.use(require('./routes/form'));
-app.use(require('./routes/home')); // app.use(require('./routes/pdf'));
-// search form
+app.use(require('./routes/logout'));
+app.use(require('./routes/signup'));
+app.use(require('./routes/signin'));
+app.use(require('./routes/home')); // search form
 
 app.get('/buscador', function (req, res) {
-  return res.render('buscador');
+  var token = req.cookies['SystemAuth'];
+  res.render('buscador', {
+    token: token
+  });
 });
 app.use('/solicitud', require('./routes/solicitud')); // Static Files
-
-app.use(_express["default"]["static"](_path["default"].join(__dirname, './assets'))); // Server is listenning
+// Server is listenning
 
 app.listen(app.get('port'), function () {
   console.log('Server on port', app.get('port'));

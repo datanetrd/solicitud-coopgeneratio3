@@ -7,16 +7,9 @@ exports.sequelize = void 0;
 
 var _sequelize = _interopRequireDefault(require("sequelize"));
 
+var _config = require("./config");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var sequelize = new _sequelize["default"]('nuevo_registro', 'root', 'Ramesh2627', {
-  host: '127.0.0.1',
-  dialect: 'mysql',
-  pool: {
-    max: 5,
-    min: 0,
-    require: 30000,
-    idle: 10000
-  }
-});
+var sequelize = new _sequelize["default"](_config.production);
 exports.sequelize = sequelize;

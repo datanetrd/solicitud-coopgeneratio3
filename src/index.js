@@ -35,7 +35,12 @@ app.engine('.hbs', exphbs({
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
     helpers: {
-      admin: ''
+      admin: function(a, b, opts) {
+        if(a == b) // Or === depending on your needs
+            return opts.fn(this);
+        else
+            return opts.inverse(this); }
+    
     }
 }));
 app.set('view engine', '.hbs');

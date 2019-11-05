@@ -89,7 +89,6 @@ var DataRegister = _dbconfig.sequelize.define('data_registers', {
     type: _sequelize["default"].INTEGER
   }
 }, {
-  freezeTableName: true,
   // createdAt: false,
   updatedAt: false
 });

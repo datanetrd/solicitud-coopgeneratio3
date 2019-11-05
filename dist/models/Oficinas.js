@@ -20,7 +20,6 @@ var oficinas = _dbconfig.sequelize.define('sucursal', {
   }
 }, {
   primaryKey: false,
-  freezeTableName: true,
   createdAt: false,
   updatedAt: false
 });

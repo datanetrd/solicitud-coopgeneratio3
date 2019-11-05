@@ -1,12 +1,14 @@
 "use strict";
 
-var _express = require("express");
-
 var _regeneratorRuntime = require("regenerator-runtime");
+
+var _express = require("express");
 
 var _Nuevos_socios = _interopRequireDefault(require("../models/Nuevos_socios"));
 
 var _Data_register = _interopRequireDefault(require("../models/Data_register"));
+
+var _passport = _interopRequireDefault(require("passport"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -14,13 +16,13 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var router = (0, _express.Router)(); // router.get('/', async (req, res) => 
+var router = (0, _express.Router)();
+// router.get('/', async (req, res) => 
 //   await nuevoSocios.findAll()
 //     .then(nuevos_socios => res.render('solicitud', {
 //       nuevos_socios
 //       }))
 //     .catch(err => console.log(err)));
-
 router.put('/edit/:id',
 /*#__PURE__*/
 function () {
@@ -90,7 +92,8 @@ function () {
             }).then(function () {
               req.flash('success_msg', 'Solicitud rechazada correctamente.');
               res.redirect('/buscador');
-            })["catch"](function (error) {// error handling
+            })["catch"](function (error) {
+              console.log(error);
             });
 
           case 5:

@@ -12,6 +12,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var router = (0, _express.Router)();
 router.get('/', function (req, res) {
-  res.render('home');
+  var token = req.cookies['SystemAuth'];
+  res.render('home', {
+    token: token
+  });
 });
 module.exports = router;

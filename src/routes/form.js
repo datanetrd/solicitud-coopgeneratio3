@@ -6,7 +6,8 @@ import {savesocioDB} from '../controllers/Form.Controller';
   // const db = require('../../config/dbConnection');
 // const validations = require('../../config/validations');
 router.get('/form', (req,res) => {
-    res.render('form');
+  var token = req.cookies['SystemAuth'];
+    res.render('form',{token});
 });
 
 
