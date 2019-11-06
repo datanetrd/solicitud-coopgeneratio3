@@ -11,7 +11,7 @@ import passport  from 'passport';
 // import passportJWT from 'passport-jwt';
 // import User from './models/User';
 import Authtoken from './middleware/Authtoken';
-
+import jwt from 'jsonwebtoken';
 // Initilizations
 const app = express();
 
@@ -34,15 +34,17 @@ app.engine('.hbs', exphbs({
     layoutDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
-    helpers: {
-      admin: function(req,res, opts) {
-        if(req.cookies['SystemAuth'].lenght > 0) // Or === depending on your needs
-        
-            return opts.fn(this);
-        else
-            return opts.inverse(this); }
+    // helpers: {
+    //   admin:{
+    //     function(req,res, opts) {
+    //       if(req.cookies['SystemAuth'].lenght > 0) // Or === depending on your needs
+          
+    //           return opts.fn(this);
+    //       else
+    //           return opts.inverse(this); } 
+    //   }
     
-    }
+    // }
 }));
 app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, './assets')));
@@ -87,7 +89,14 @@ app.use((req,res,next)=> {
   // search form
   app.get('/buscador', (req,res) =>{
     var token = req.cookies['SystemAuth'];
-    res.render('buscador', {token});
+    if (req.cookies['SystemAuth']) {
+        var admin = ''
+        jwt.verify(token,process.env.SECRET_OR_KEY, function (error,decoded){
+          if (decoded.role === 'admin') {
+               admin = decoded.role
+          }  
+        })
+    }    res.render('buscador', {admin,token});
   }); 
   
   app.use('/solicitud', require('./routes/solicitud'));

@@ -20,6 +20,8 @@ var _passport = _interopRequireDefault(require("passport"));
 
 var _Authtoken = _interopRequireDefault(require("./middleware/Authtoken"));
 
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
 var _dbconfig = require("./config/dbconfig");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -43,10 +45,16 @@ app.engine('.hbs', (0, _expressHandlebars["default"])({
   defaultLayout: 'main',
   layoutDir: _path["default"].join(app.get('views'), 'layouts'),
   partialsDir: _path["default"].join(app.get('views'), 'partials'),
-  extname: '.hbs',
-  helpers: {
-    admin: ''
-  }
+  extname: '.hbs' // helpers: {
+  //   admin:{
+  //     function(req,res, opts) {
+  //       if(req.cookies['SystemAuth'].lenght > 0) // Or === depending on your needs
+  //           return opts.fn(this);
+  //       else
+  //           return opts.inverse(this); } 
+  //   }
+  // }
+
 }));
 app.set('view engine', '.hbs');
 app.use(_express["default"]["static"](_path["default"].join(__dirname, './assets')));
@@ -88,7 +96,19 @@ app.use(require('./routes/home')); // search form
 
 app.get('/buscador', function (req, res) {
   var token = req.cookies['SystemAuth'];
+
+  if (req.cookies['SystemAuth']) {
+    var admin = '';
+
+    _jsonwebtoken["default"].verify(token, process.env.SECRET_OR_KEY, function (error, decoded) {
+      if (decoded.role === 'admin') {
+        admin = decoded.role;
+      }
+    });
+  }
+
   res.render('buscador', {
+    admin: admin,
     token: token
   });
 });

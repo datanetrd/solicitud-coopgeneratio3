@@ -8,6 +8,8 @@ var _Nuevos_socios = _interopRequireDefault(require("../models/Nuevos_socios"));
 
 var _Data_register = _interopRequireDefault(require("../models/Data_register"));
 
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
 var _passport = _interopRequireDefault(require("passport"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -115,26 +117,40 @@ function () {
   var _ref3 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee3(req, res) {
-    var cedula;
+    var cedula, token, admin;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             cedula = req.query.cedula;
-            _context3.next = 3;
+            token = req.cookies['SystemAuth'];
+
+            if (req.cookies['SystemAuth']) {
+              admin = '';
+
+              _jsonwebtoken["default"].verify(token, process.env.SECRET_OR_KEY, function (error, decoded) {
+                if (decoded.role === 'admin') {
+                  admin = decoded.role;
+                }
+              });
+            }
+
+            _context3.next = 5;
             return _Nuevos_socios["default"].findAll({
               where: {
                 cedula: "".concat(cedula)
               }
             }).then(function (nuevos_socios) {
               return res.render('solicitud', {
-                nuevos_socios: nuevos_socios
+                nuevos_socios: nuevos_socios,
+                token: token,
+                admin: admin
               });
             })["catch"](function (err) {
               return console.log(err);
             });
 
-          case 3:
+          case 5:
           case "end":
             return _context3.stop();
         }

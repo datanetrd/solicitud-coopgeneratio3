@@ -3,6 +3,7 @@ import {Router} from 'express';
 const router = Router();
 import nuevoSocios from '../models/Nuevos_socios';
 import DataRegister from '../models/Data_register'; 
+import jwt from 'jsonwebtoken';
 import passport from 'passport';
 
 // router.get('/', async (req, res) => 
@@ -52,10 +53,17 @@ import passport from 'passport';
 // Search for solicitudes
 router.get('/search',async (req, res) => {
   let { cedula } = req.query;
-
-
+  var token = req.cookies['SystemAuth'];
+  if (req.cookies['SystemAuth']) {
+      var admin = ''
+      jwt.verify(token,process.env.SECRET_OR_KEY, function (error,decoded){
+        if (decoded.role === 'admin') {
+             admin = decoded.role
+        }  
+      })
+  }
  await nuevoSocios.findAll({ where: {cedula: `${cedula}`} })
-    .then(nuevos_socios => res.render('solicitud', { nuevos_socios }))
+    .then(nuevos_socios => res.render('solicitud', { nuevos_socios,token,admin }))
     .catch(err => console.log(err));
 });
 
