@@ -1,0 +1,13 @@
+"use strict";
+
+var _express = require("express");
+
+var _regeneratorRuntime = require("regenerator-runtime");
+
+var _LoginController = require("../controllers/LoginController");
+
+var router = (0, _express.Router)();
+router.get('/adminlogin', function (req, res) {
+  res.render('adminlogin');
+});
+module.exports = router;

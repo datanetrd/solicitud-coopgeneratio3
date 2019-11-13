@@ -20,8 +20,7 @@
                         <a href="/buscador" class="nav-link">
                             <i class="material-icons">search</i> Buscar Solicitudes
                         </a>
-                    {{/if}}
-                    {{#if token}}
+                    {{!-- {{#if token}} --}}
                           </li>
                     <li class="nav-item ">
                         <a href="/logout" class="nav-link">
@@ -29,14 +28,9 @@
                         </a>
                     </li>
                     {{else}}
-                    <li class="nav-item ">
-                        <a href="/signup" class="nav-link">
-                            <i class="material-icons">person_add</i> Regístrese
-                        </a>
-                    </li>
-                    <li class="nav-item  active ">
-                        <a href="/login" class="nav-link">
-                            <i class="material-icons">fingerprint</i> Pagina de acceso
+                   <li class="nav-item ">
+                        <a href="/adminlogin" class="nav-link">
+                            <i class="material-icons">fingerprint</i>Mantenimiento
                         </a>
                     </li>
                     {{/if}}

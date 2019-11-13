@@ -92,7 +92,8 @@ app.use(require('./routes/form'));
 app.use(require('./routes/logout'));
 app.use(require('./routes/signup'));
 app.use(require('./routes/signin'));
-app.use(require('./routes/home')); // search form
+app.use(require('./routes/home'));
+app.use(require('./routes/adminlogin')); // search form
 
 app.get('/buscador', function (req, res) {
   var token = req.cookies['SystemAuth'];

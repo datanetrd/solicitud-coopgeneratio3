@@ -85,6 +85,7 @@ app.use((req,res,next)=> {
   app.use(require('./routes/signup'));
   app.use(require('./routes/signin'));
   app.use(require('./routes/home'));
+  app.use(require('./routes/adminlogin'));
 
   // search form
   app.get('/buscador', (req,res) =>{
