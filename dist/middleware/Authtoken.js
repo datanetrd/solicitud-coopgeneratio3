@@ -4,9 +4,9 @@ var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_dotenv["default"].config();
+_dotenv.default.config();
 
 module.exports = function (req, res, next) {
   if (req.path != '/login' && req.path != '/signup' && req.path != '/' && req.path != '/form' && req.path != '/logout' && req.path != '/adminlogin') {
@@ -14,10 +14,10 @@ module.exports = function (req, res, next) {
       // creo la estrategia para el token 
       var token = req.cookies['SystemAuth'];
 
-      _jsonwebtoken["default"].verify(token, process.env.SECRET_OR_KEY, function (error, decoded) {
+      _jsonwebtoken.default.verify(token, process.env.SECRET_OR_KEY, function (error, decoded) {
         if (error) return res.status(403).send({
           message: 'No estas autorizado o logueado',
-          error: error
+          error
         });
         console.log('payload received', decoded);
 

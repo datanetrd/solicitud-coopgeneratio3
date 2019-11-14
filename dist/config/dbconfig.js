@@ -9,7 +9,7 @@ var _sequelize = _interopRequireDefault(require("sequelize"));
 
 var _config = require("./config");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var sequelize = new _sequelize["default"](_config.production);
+const sequelize = new _sequelize.default(_config.production);
 exports.sequelize = sequelize;

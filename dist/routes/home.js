@@ -10,16 +10,16 @@ var _Data_register = _interopRequireDefault(require("../models/Data_register"));
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var router = (0, _express.Router)();
-router.get('/', function (req, res) {
+const router = (0, _express.Router)();
+router.get('/', (req, res) => {
   var token = req.cookies['SystemAuth'];
 
   if (req.cookies['SystemAuth']) {
     var admin = '';
 
-    _jsonwebtoken["default"].verify(token, process.env.SECRET_OR_KEY, function (error, decoded) {
+    _jsonwebtoken.default.verify(token, process.env.SECRET_OR_KEY, function (error, decoded) {
       if (decoded.role === 'admin') {
         admin = decoded.role;
       }
@@ -27,8 +27,8 @@ router.get('/', function (req, res) {
   }
 
   res.render('home', {
-    admin: admin,
-    token: token
+    admin,
+    token
   });
 });
 module.exports = router;

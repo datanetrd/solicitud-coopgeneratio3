@@ -12,77 +12,51 @@ var _config = require("./config");
 
 var _regeneratorRuntime = require("regenerator-runtime");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+const transporter = _nodemailer.default.createTransport(_config.mail);
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+const SolicitudSucursal = async function (req, res) {
+  const {
+    nombre,
+    apellido,
+    cedula,
+    sucursal
+  } = req.body; //envio de email
 
-var transporter = _nodemailer["default"].createTransport(_config.mail);
+  const DestinoSucursal = await _oficinas.default.findOne({
+    where: {
+      oficina: sucursal
+    }
+  }); //Opcionoes envio email
 
-var SolicitudSucursal =
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(req, res) {
-    var _req$body, nombre, apellido, cedula, sucursal, DestinoSucursal, mailOptions;
+  const mailOptions = {
+    from: 'ramiperez26@gmail.com',
+    //Destino del correo
+    to: `${DestinoSucursal.Email_Oficina}`,
+    subject: `Nueva solicitud para socio ${nombre} ${cedula}`,
+    text: `Nueva solicitud de parte de ${nombre} ${apellido}`,
+    attachments: [{
+      filename: `${cedula}.pdf`,
+      path: _path.default.join(__dirname, `../../${nombre}.pdf`),
+      contentType: 'application/pdf'
+    }]
+  }; //Envio del mail
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _req$body = req.body, nombre = _req$body.nombre, apellido = _req$body.apellido, cedula = _req$body.cedula, sucursal = _req$body.sucursal; //envio de email
+  transporter.sendMail(mailOptions, function (error, info) {
+    //validar que haya habido un error
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
 
-            _context.next = 3;
-            return _oficinas["default"].findOne({
-              where: {
-                oficina: sucursal
-              }
-            });
+    const filePath = _path.default.join(__dirname, `../../${nombre}.pdf`);
 
-          case 3:
-            DestinoSucursal = _context.sent;
-            //Opcionoes envio email
-            mailOptions = {
-              from: 'ramiperez26@gmail.com',
-              //Destino del correo
-              to: "".concat(DestinoSucursal.Email_Oficina),
-              subject: "Nueva solicitud para socio ".concat(nombre, " ").concat(cedula),
-              text: "Nueva solicitud de parte de ".concat(nombre, " ").concat(apellido),
-              attachments: [{
-                filename: "".concat(cedula, ".pdf"),
-                path: _path["default"].join(__dirname, "../../".concat(nombre, ".pdf")),
-                contentType: 'application/pdf'
-              }]
-            }; //Envio del mail
-
-            transporter.sendMail(mailOptions, function (error, info) {
-              //validar que haya habido un error
-              if (error) {
-                console.log(error);
-              } else {
-                console.log('Email sent: ' + info.response);
-              }
-
-              var filePath = _path["default"].join(__dirname, "../../".concat(nombre, ".pdf"));
-
-              _fsExtra["default"].unlink(filePath);
-            });
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function SolicitudSucursal(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
+    _fsExtra.default.unlink(filePath);
+  });
+};
 
 module.exports = {
-  SolicitudSucursal: SolicitudSucursal
+  SolicitudSucursal
 };
