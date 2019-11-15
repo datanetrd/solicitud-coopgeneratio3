@@ -6,7 +6,7 @@ var _fsExtra = _interopRequireDefault(require("fs-extra"));
 
 var _nodemailer = _interopRequireDefault(require("nodemailer"));
 
-var _oficinas = _interopRequireDefault(require("../models/oficinas"));
+var _oficinas = _interopRequireDefault(require("../models/Oficinas"));
 
 var _config = require("./config");
 
