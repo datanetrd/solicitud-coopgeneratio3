@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 import nodemailer from 'nodemailer';
-import oficinas from '../models/oficinas';
+import oficinas from '../models/Oficinas';
 import {mail} from './config';
 import {
     async
