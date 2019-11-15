@@ -20,8 +20,14 @@
                         <a href="/buscador" class="nav-link">
                             <i class="material-icons">search</i> Buscar Solicitudes
                         </a>
-                    {{!-- {{#if token}} --}}
                           </li>
+                    <li class="nav-item ">
+                        <a href="/logout" class="nav-link">
+                            <i class="material-icons">logout</i> Cerrar Sesión
+                        </a>
+                    </li>
+                    {{else}}
+                    {{#if token}}
                     <li class="nav-item ">
                         <a href="/logout" class="nav-link">
                             <i class="material-icons">logout</i> Cerrar Sesión
@@ -33,6 +39,7 @@
                             <i class="material-icons">fingerprint</i>Mantenimiento
                         </a>
                     </li>
+                    {{/if}}
                     {{/if}}
                 </ul>
           </div>
