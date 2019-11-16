@@ -259,8 +259,8 @@ export async function savesocioDB(req, res,next) {
           });
           const page = await browser.newPage()
           await page.setViewport({
-            width: 1000,
-            height: 600,
+            width: 10000,
+            height: 6000,
             deviceScaleFactor: 1
       });
 
@@ -271,9 +271,9 @@ export async function savesocioDB(req, res,next) {
             waitUntil: 'networkidle0'
           });
           const options = {
-            height: '1110px',
-            width: '816px',
-            // format: "A4",
+            // height: '1110px',
+            // width: '816px',
+            format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
             pageRanges: "1-1",
