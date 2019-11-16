@@ -6,7 +6,7 @@ var _fsExtra = _interopRequireDefault(require("fs-extra"));
 
 var _nodemailer = _interopRequireDefault(require("nodemailer"));
 
-var _oficinas = _interopRequireDefault(require("../models/Oficinas"));
+var _Oficinas = _interopRequireDefault(require("../models/Oficinas"));
 
 var _config = require("./config");
 
@@ -24,7 +24,7 @@ const SolicitudSucursal = async function (req, res) {
     sucursal
   } = req.body; //envio de email
 
-  const DestinoSucursal = await _oficinas.default.findOne({
+  const DestinoSucursal = await _Oficinas.default.findOne({
     where: {
       oficina: sucursal
     }

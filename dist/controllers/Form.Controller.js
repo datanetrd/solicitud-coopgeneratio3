@@ -290,8 +290,9 @@ async function savesocioDB(req, res, next) {
             waitUntil: 'networkidle0'
           });
           const options = {
-            height: '1110px',
-            width: '816px',
+            // height: '1110px',
+            // width: '816px',
+            format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
             pageRanges: "1-1",
