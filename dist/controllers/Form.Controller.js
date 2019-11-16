@@ -280,19 +280,25 @@ async function savesocioDB(req, res, next) {
       (async function () {
         try {
           const browser = await _puppeteer.default.launch({
-            args: ['--no-sandbox'],
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            // args: [`--window-size=${options.width},${options.height}`],
             headless: true
           });
           const page = await browser.newPage();
+          await page.setViewport({
+            width: 1000,
+            height: 600,
+            deviceScaleFactor: 1
+          });
           const content = await compile('pdf27', datta); // console.log(content);
 
           await page.goto(`data:text/html;charset=UTF-8,${content}`, {
             waitUntil: 'networkidle0'
           });
           const options = {
-            // height: '1110px',
-            // width: '816px',
-            format: "A4",
+            height: '1110px',
+            width: '816px',
+            // format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
             pageRanges: "1-1",
