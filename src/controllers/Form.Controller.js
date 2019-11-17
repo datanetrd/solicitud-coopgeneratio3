@@ -258,11 +258,11 @@ export async function savesocioDB(req, res,next) {
             headless: true
           });
           const page = await browser.newPage()
-          await page.setViewport({
-            width: 1440,
-            height: 900,
-            deviceScaleFactor: 2
-      });
+      //     await page.setViewport({
+      //       width: 1440,
+      //       height: 900,
+      //       deviceScaleFactor: 2
+      // });
 
           const content = await compile('pdf27', datta);
           // console.log(content);
@@ -273,8 +273,8 @@ export async function savesocioDB(req, res,next) {
           const options = {
             // height: '1110px', // version para dev
             // width: '816px', //version para dev
-            height: '2000px', //hay que editar esto bien para heroku
-            width: '816px', //hay que editar esto bien para heroku
+            height: '1310px', //hay que editar esto bien para heroku
+            width: '900px', //hay que editar esto bien para heroku
             // format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
