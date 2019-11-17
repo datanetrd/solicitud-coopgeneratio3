@@ -288,7 +288,7 @@ export async function savesocioDB(req, res,next) {
 
             path: `${nombre}.pdf`
           }
-          await page.emulateMedia('screen');
+          // await page.emulateMedia('screen');
           await page.pdf(options);
           console.log('done');
           await browser.close();

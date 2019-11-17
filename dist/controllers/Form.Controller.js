@@ -313,8 +313,8 @@ async function savesocioDB(req, res, next) {
             },
             printBackground: true,
             path: `${nombre}.pdf`
-          };
-          await page.emulateMedia('screen');
+          }; // await page.emulateMedia('screen');
+
           await page.pdf(options);
           console.log('done');
           await browser.close();
