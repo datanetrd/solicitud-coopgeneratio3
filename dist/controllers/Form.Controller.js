@@ -300,7 +300,7 @@ async function savesocioDB(req, res, next) {
             // width: '816px', //version para dev
             height: '1205px',
             //hay que editar esto bien para heroku
-            width: '920px',
+            width: '930px',
             //hay que editar esto bien para heroku
             // format: "A4",
             headerTemplate: "<p></p>",
