@@ -286,9 +286,9 @@ async function savesocioDB(req, res, next) {
           });
           const page = await browser.newPage();
           await page.setViewport({
-            width: 10000,
-            height: 6000,
-            deviceScaleFactor: 1
+            width: 1440,
+            height: 900,
+            deviceScaleFactor: 2
           });
           const content = await compile('pdf27', datta); // console.log(content);
 
@@ -298,7 +298,7 @@ async function savesocioDB(req, res, next) {
           const options = {
             // height: '1110px',
             // width: '816px',
-            format: "A4",
+            // format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
             pageRanges: "1-1",
