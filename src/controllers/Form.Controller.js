@@ -271,8 +271,10 @@ export async function savesocioDB(req, res,next) {
             waitUntil: 'networkidle0'
           });
           const options = {
-            // height: '1110px',
-            // width: '816px',
+            // height: '1110px', // version para dev
+            // width: '816px', //version para dev
+            height: '2110px', //hay que editar esto bien para heroku
+            width: '916px', //hay que editar esto bien para heroku
             // format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
