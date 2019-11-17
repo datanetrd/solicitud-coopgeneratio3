@@ -273,8 +273,8 @@ export async function savesocioDB(req, res,next) {
           const options = {
             // height: '1110px', // version para dev
             // width: '816px', //version para dev
-            height: '1250px', //hay que editar esto bien para heroku
-            width: '1000px', //hay que editar esto bien para heroku
+            height: '1200px', //hay que editar esto bien para heroku
+            width: '900px', //hay que editar esto bien para heroku
             // format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
