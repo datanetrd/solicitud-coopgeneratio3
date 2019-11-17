@@ -298,9 +298,9 @@ async function savesocioDB(req, res, next) {
           const options = {
             // height: '1110px', // version para dev
             // width: '816px', //version para dev
-            height: '1270px',
+            height: '1260px',
             //hay que editar esto bien para heroku
-            width: '916px',
+            width: '930px',
             //hay que editar esto bien para heroku
             // format: "A4",
             headerTemplate: "<p></p>",
