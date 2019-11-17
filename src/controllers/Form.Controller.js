@@ -274,7 +274,7 @@ export async function savesocioDB(req, res,next) {
             // height: '1110px', // version para dev
             // width: '816px', //version para dev
             height: '1210px', //hay que editar esto bien para heroku
-            width: '870px', //hay que editar esto bien para heroku
+            width: '915px', //hay que editar esto bien para heroku
             // format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
@@ -288,7 +288,7 @@ export async function savesocioDB(req, res,next) {
 
             path: `${nombre}.pdf`
           }
-          // await page.emulateMedia('screen');
+          await page.emulateMedia('screen');
           await page.pdf(options);
           console.log('done');
           await browser.close();
