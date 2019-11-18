@@ -253,8 +253,9 @@ export async function savesocioDB(req, res,next) {
 
         try {
           const browser = await puppeteer.launch({
-            args: ['--no-sandbox','--disable-setuid-sandbox'],
+            args: ['--no-sandbox','--disable-setuid-sandbox',],
             // args: [`--window-size=${options.width},${options.height}`],
+            // '--font-render-hinting=medium'
             headless: true
           });
           const page = await browser.newPage()
@@ -271,10 +272,10 @@ export async function savesocioDB(req, res,next) {
             waitUntil: 'networkidle0'
           });
           const options = {
-            // height: '1110px', // version para dev
-            // width: '816px', //version para dev
-            height: '1210px', //hay que editar esto bien para heroku
-            width: '915px', //hay que editar esto bien para heroku
+            height: '1110px', // version para dev
+            width: '816px', //version para dev
+            // height: '1210px', //hay que editar esto bien para heroku
+            // width: '915px', //hay que editar esto bien para heroku
             // format: "A4",
             headerTemplate: "<p></p>",
             footerTemplate: "<p></p>",
