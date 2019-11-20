@@ -40,12 +40,14 @@ module.exports = {
       },
     },
     mail: {
-
-      service: 'gmail',
+      // service: 'gmail',
+      host: process.env.MAIL_HOST,
+      port: process.env.MAIL_PORT,
+      secure: false,
       auth: {
-          //se indica el usuario y password
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS
+        //se indica el usuario y password
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS
       }
     },
     expiratejwt: {
