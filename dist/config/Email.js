@@ -31,7 +31,7 @@ const SolicitudSucursal = async function (req, res) {
   }); //Opcionoes envio email
 
   const mailOptions = {
-    from: 'ramiperez26@gmail.com',
+    from: process.env.MAIL_USER,
     //Destino del correo
     to: `${DestinoSucursal.Email_Oficina}`,
     subject: `Nueva solicitud para socio ${nombre} ${cedula}`,
