@@ -1,5 +1,7 @@
 "use strict";
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 var _path = _interopRequireDefault(require("path"));
 
 var _fsExtra = _interopRequireDefault(require("fs-extra"));
@@ -13,6 +15,8 @@ var _config = require("./config");
 var _regeneratorRuntime = require("regenerator-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_dotenv.default.config();
 
 const transporter = _nodemailer.default.createTransport(_config.mail);
 
