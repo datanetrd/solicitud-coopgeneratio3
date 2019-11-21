@@ -21,7 +21,7 @@ const router = (0, _express.Router)();
 //       nuevos_socios
 //       }))
 //     .catch(err => console.log(err)));
-router.put('/edit/:id', async (req, res) => {
+router.put('/edit/:cedula', async (req, res) => {
   const {
     acept
   } = req.body;
@@ -42,19 +42,19 @@ router.put('/edit/:id', async (req, res) => {
   }).catch(error => {// error handling
   });
 });
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:cedula', async (req, res) => {
   const {
-    id
+    cedula
   } = req.params; // console.log(id);
 
   await _Nuevos_socios.default.destroy({
     where: {
-      id: id
+      cedula: cedula
     }
   });
   await _Data_register.default.destroy({
     where: {
-      id: id
+      cedula: cedula
     }
   }).then(function () {
     req.flash('success_msg', 'Solicitud rechazada correctamente.');

@@ -16,7 +16,7 @@ import passport from 'passport';
 
 
     
-  router.put('/edit/:id', async (req,res) =>{
+  router.put('/edit/:cedula', async (req,res) =>{
   const {acept} = req.body;
   const {id} = req.params;
   var values = { estado_solicitud: acept };
@@ -35,11 +35,11 @@ import passport from 'passport';
   });
 
 
-  router.delete('/delete/:id',async (req,res) =>{
-    const {id} = req.params;
+  router.delete('/delete/:cedula',async (req,res) =>{
+    const {cedula} = req.params;
     // console.log(id);
-   await nuevoSocios.destroy({where: {id:id}})
-   await DataRegister.destroy({where: {id:id}})
+   await nuevoSocios.destroy({where: {cedula:cedula}})
+   await DataRegister.destroy({where: {cedula:cedula}})
     .then(function() {
       req.flash('success_msg', 'Solicitud rechazada correctamente.');
       res.redirect('/buscador');
