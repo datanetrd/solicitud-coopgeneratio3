@@ -1,4 +1,8 @@
 {
+  "ignore":
+   [
+    "**/__assets__"
+  ],
     "presets": [
         ["@babel/preset-env",{
             "targets": {
