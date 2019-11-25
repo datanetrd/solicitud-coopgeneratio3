@@ -4,3 +4,4 @@ src
 .env
 .dockerignore
 Dockerfile
+.vscode
