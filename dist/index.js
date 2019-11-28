@@ -68,6 +68,9 @@ var cookieSecret = process.env.COOKIE_SECRET;
 app.use((0, _cookieParser.default)(cookieSecret)); // expres-session initializate
 
 app.use((0, _expressSession.default)({
+  cookie: {
+    maxAge: 60000
+  },
   secret: 'RthG27',
   resave: false,
   saveUninitialized: false
