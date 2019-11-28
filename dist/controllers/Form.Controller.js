@@ -272,7 +272,7 @@ async function savesocioDB(req, res, next) {
       const compile = async function (templateName, datta) {
         const filePath = _path.default.join(process.cwd(), './src/views', `${templateName}.hbs`);
 
-        const html = await _fsExtra.default.readFileSync(filePath, 'utf-8'); // console.log(html);
+        const html = await _fsExtra.default.readFile(filePath, 'utf-8'); // console.log(html);
 
         return _handlebars.default.compile(html)(datta);
       };

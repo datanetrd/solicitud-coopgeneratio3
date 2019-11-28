@@ -244,7 +244,7 @@ export async function savesocioDB(req, res,next) {
       const datta = req.body;
       const compile = async function (templateName, datta) {
         const filePath = path.join(process.cwd(), './src/views', `${templateName}.hbs`);
-        const html = await fs.readFileSync(filePath, 'utf-8');
+        const html = await fs.readFile(filePath, 'utf-8');
         // console.log(html);
         return hbs.compile(html)(datta);
 
