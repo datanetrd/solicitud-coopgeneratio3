@@ -6,6 +6,8 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _Form = require("../controllers/Form.Controller");
 
+var _regeneratorRuntime = require("regenerator-runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const router = (0, _express.Router)(); // import request from 'request';
@@ -32,8 +34,8 @@ router.get('/form', (req, res) => {
     admin
   });
 });
-router.post('/form', _Form.savesocioDB, (req, res) => {
-  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+router.post('/form', _Form.savesocioDB, async (req, res) => {
+  await req.flash('success_msg', 'Solicitud Enviada Correctamente.');
   res.redirect('/');
 });
 module.exports = router; // res.redirect('/');

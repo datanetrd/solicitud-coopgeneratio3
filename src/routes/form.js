@@ -4,6 +4,7 @@ const router = Router();
 // const {nuevoSocios} = require('../models/nuevos_socios');
 import jwt from 'jsonwebtoken';
 import {savesocioDB} from '../controllers/Form.Controller';
+import { async } from 'regenerator-runtime';
   // const db = require('../../config/dbConnection');
 // const validations = require('../../config/validations');
 router.get('/form', (req,res) => {
@@ -21,8 +22,8 @@ router.get('/form', (req,res) => {
 });
 
 
-router.post('/form', savesocioDB, (req,res) =>{
-  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+router.post('/form', savesocioDB, async (req,res)  =>{
+  await req.flash('success_msg', 'Solicitud Enviada Correctamente.');
   res.redirect('/');
 });
   
