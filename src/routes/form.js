@@ -23,9 +23,15 @@ router.get('/form', (req,res) => {
 
 
 router.post('/form', savesocioDB, async (req,res)  =>{
-  await req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+   res.send(req.flash('success_msg', 'Solicitud Enviada Correctamente.'));
   res.redirect('/');
 });
+
+
+// router.post('/form', savesocioDB, async (req,res)  =>{
+//   await req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+//   res.redirect('/');
+// });
   
   
  
