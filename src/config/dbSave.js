@@ -69,11 +69,11 @@ const save = async function(req,res) {
   
       } catch (e) {
         console.log(e);
-        res.status(500).json({
-          message: 'Algo ha ido Mal',
-          data: {}
-        });
-        return
+        // res.status(500).json({
+        //   message: 'Algo ha ido Mal',
+        //   data: {}
+        // });
+        // return
       };
 }
 
