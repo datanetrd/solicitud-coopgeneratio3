@@ -30,7 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import oficinas from '../models/oficinas';
 // import nodemailer from 'nodemailer';
 // import nuevoSocios from '../models/Nuevos_socios';
-async function savesocioDB(req, res, next) {
+async function savesocioDB(req, res) {
   const captcha = req.body['g-recaptcha-response']; // Secret Key
 
   const secretKey = '6Lc7Q7MUAAAAAOiHyEwkMOxgJvSv1sF9avSLEOs6'; // Verify URL
@@ -46,7 +46,7 @@ async function savesocioDB(req, res, next) {
     // if not successful
 
     if (body.success !== undefined && !body.success) {
-      console.log(FaileCaptcha);
+      console.log('FaileCaptcha');
     }
   });
   const {
@@ -332,5 +332,6 @@ async function savesocioDB(req, res, next) {
     }
   }
 
-  next();
+  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+  res.redirect('/'); // next();
 } //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']

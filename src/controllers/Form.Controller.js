@@ -12,7 +12,7 @@ import DataRegister from '../models/Data_register';
 // import nuevoSocios from '../models/Nuevos_socios';
 import mail from '../config/Email';
 import dbsave from '../config/dbSave';
-export async function savesocioDB(req, res,next) {
+export async function savesocioDB(req, res) {
 
   const captcha = req.body['g-recaptcha-response'];
   // Secret Key
@@ -32,7 +32,7 @@ export async function savesocioDB(req, res,next) {
 
     // if not successful
     if (body.success !== undefined && !body.success) {
-      console.log(FaileCaptcha)
+      console.log('FaileCaptcha')
     }
 
 
@@ -318,8 +318,9 @@ export async function savesocioDB(req, res,next) {
     }
 
   }
-
-next();
+  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+  res.redirect('/');
+// next();
 }
 
 //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']
