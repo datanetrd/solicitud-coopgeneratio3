@@ -32,8 +32,9 @@ router.get('/form', (req, res) => {
     admin
   });
 });
-router.post('/form', _Form.savesocioDB, (req, res) => {
-  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
-  res.redirect('/');
-});
+router.post('/form', _Form.savesocioDB); // router.post('/form', savesocioDB, (req,res) =>{
+//   req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+//   res.redirect('/');
+// });
+
 module.exports = router; // res.redirect('/');

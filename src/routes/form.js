@@ -21,10 +21,12 @@ router.get('/form', (req,res) => {
 });
 
 
-router.post('/form', savesocioDB, (req,res) =>{
-  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
-  res.redirect('/');
-});
+router.post('/form', savesocioDB)
+
+// router.post('/form', savesocioDB, (req,res) =>{
+//   req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+//   res.redirect('/');
+// });
   
   
  
