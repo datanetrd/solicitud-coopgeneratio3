@@ -330,8 +330,9 @@ async function savesocioDB(req, res) {
         }
       })();
     }
-  }
 
-  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
-  res.redirect('/'); // next();
+    req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+    res.redirect('/');
+  } // next();
+
 } //     // fields: ['nombre', 'cedula', 'estadocivil', 'direccionresidencial', 'provincia', 'telefonos', 'celular', 'oficinatrabajo', 'direcciontrabajo', 'telefono', 'fax', 'puestotrabajo', 'fechaingresoempresa', 'sueldo', 'email']

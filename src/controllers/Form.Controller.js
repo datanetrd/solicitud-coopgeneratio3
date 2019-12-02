@@ -316,10 +316,10 @@ export async function savesocioDB(req, res) {
 
 
     }
-
+    req.flash('success_msg', 'Solicitud Enviada Correctamente.');
+    res.redirect('/');
   }
-  req.flash('success_msg', 'Solicitud Enviada Correctamente.');
-  res.redirect('/');
+  
 // next();
 }
 
