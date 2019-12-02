@@ -196,6 +196,12 @@ export async function savesocioDB(req, res) {
       text: 'El siguiente campo esta vacio: ahorromensual'
     });
   }
+   //sucursal validations
+   if (!sucursal) {
+    errors.push({
+      text: 'Por favor Seleccione una sucursal'
+    });
+  }
 
 
   //errors validations 
